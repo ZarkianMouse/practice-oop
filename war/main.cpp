@@ -14,21 +14,5 @@ int
  main() {
     std::cout << "hello world\n";
 
-    Rank r1 = King;
-    Rank r2 = Queen;
-
-    std::cout << (r1 == r2) << '\n';
-    std::cout << (r1 < r2) << '\n';
-
-// We can cast int to rank.
-// This is a potential error condition. You are obliged
-// to verify that Ace <= n0 && n0 <= King.
-
-    int n0;
-    Rank r5 = static_cast<Rank>(n0);
-
-// This is a widening conversion and  is guaranteed
-// to work (almost certainly).
-
-    int n = King;
+    f();
 }
