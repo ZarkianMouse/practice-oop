@@ -1,4 +1,6 @@
 #include "card.hpp"
+#include "player.hpp"
+#include "deck.hpp"
 #include <iostream>
 
 // What's in a game of war?
@@ -14,5 +16,21 @@ int
  main() {
     std::cout << "hello world\n";
 
-    f();
+    test();
+    std::cout << "3...2...1...War!!\n";
+    
+    Deck newDeck(52);
+    newDeck.allocateDeck();
+    std::cout << "deck shuffled\n";
+    //Loop
+    //generateDeck
+    //divideDeck
+    
+    //gameLoop
+    //revealCard1
+    //revealCard2
+    //declareWinner
+    //discard
+
+    //endGame
 }

@@ -6,8 +6,7 @@
 // How do you represent a suit?
 //    - Just use ints. Right?
 // How do you represent a pair of things?
-// Defines a new type (user-defined type). Sometimes called
-// a kind of type constructor (ignore that).
+// Defines a new type (user-defined type)
 
 enum Rank {
     Ace,
@@ -23,6 +22,7 @@ enum Rank {
     Jack,
     Queen,
     King,
+    End,
 };
 
 // Represents the suits of a card.
@@ -31,6 +31,7 @@ enum Suit {
     Diamonds,
     Clubs,
     Spades,
+    Blank,
 };
 
 class Card {
@@ -44,7 +45,8 @@ class Card {
   // are needed here).
   Card(Rank r, Suit s)
     : rank(r), suit(s) {}; // The right way
-
+  
+  
   Rank getRank() const {return rank;};
   Suit getSuit() const {return suit;};
   // Declares a destructor. If we had acquired
@@ -57,9 +59,3 @@ private:
   Rank rank;
   Suit suit;
 };
-
-void f() {
-  Card c {Ace, Spades};
-  // c.rank = Ace;
-  // c.suit = Spades;
-}

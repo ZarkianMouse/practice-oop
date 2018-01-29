@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/naomi/practice-oop/war/card.cpp
+
+/home/naomi/practice-oop/war/card.hpp
+iostream
+-
+
+/home/naomi/practice-oop/war/deck.cpp
+
+/home/naomi/practice-oop/war/deck.hpp
+card.hpp
+/home/naomi/practice-oop/war/card.hpp
+iostream
+-
+stdlib.h
+-
+vector
+-
+iterator
+-
+
+/home/naomi/practice-oop/war/game.cpp
+
+/home/naomi/practice-oop/war/main.cpp
+card.hpp
+/home/naomi/practice-oop/war/card.hpp
+player.hpp
+/home/naomi/practice-oop/war/player.hpp
+deck.hpp
+/home/naomi/practice-oop/war/deck.hpp
+iostream
+-
+
+/home/naomi/practice-oop/war/player.cpp
+
+/home/naomi/practice-oop/war/player.hpp
+iostream
+-
+
