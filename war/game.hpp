@@ -8,7 +8,7 @@ class War {
     War() {}
     ~War() {}
    
-   void showCards(Player first, Deck &p1, Player second, Deck &p2)
+   void showCards(Player &first, Deck &p1, Player &second, Deck &p2)
    {
       Card card1 = p1.removeCard();
       Card card2 = p2.removeCard();
@@ -64,6 +64,9 @@ void playWar(War &newGame, int SIZE)
     for (unsigned int i = 0; i < deckP1.size(); i++)
     {
         newGame.showCards(p1, deckP1, p2, deckP2);
+        std::cout << p1.getName() << " score: " << p1.getScore() << '\n'
+                  << p2.getName() << " score: " << p2.getScore() << '\n';
+
     }
     
     if (p1.getScore() > p2.getScore())

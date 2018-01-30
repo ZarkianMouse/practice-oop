@@ -8,7 +8,7 @@ class Player {
 
     const std::string getName() {return name;}
     int getScore() {return score;}
-    void updateScore() {++score;}
+    void updateScore() {score += 1;}
   private:
     std::string name;
     int score;

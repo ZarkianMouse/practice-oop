@@ -1,6 +1,9 @@
 #include "game.hpp"
 #include <iostream>
 #include <vector>
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
 
 // What's in a game of war?
 // - cards (values between 1 and 13, suits)
@@ -16,6 +19,7 @@ const int DECK_SIZE = 52;
 int
  main() {
     std::cout << "hello world\n";
+    srand(time(NULL));
 
     std::cout << "3...2...1...War!!\n";
     
