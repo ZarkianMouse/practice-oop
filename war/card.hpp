@@ -45,8 +45,9 @@ class Card {
   // are needed here).
   Card(Rank r, Suit s)
     : rank(r), suit(s) {}; // The right way
-  
-  
+  Card() {}
+
+
   Rank getRank() const {return rank;};
   Suit getSuit() const {return suit;};
   // Declares a destructor. If we had acquired
@@ -54,8 +55,13 @@ class Card {
   // DO NOT DEFINE A DESTRUCTOR.
   ~Card() {
   }
-
+  void operator=(Card b) {rank = b.getRank(); suit = b.getSuit();}
 private:
   Rank rank;
   Suit suit;
 };
+
+bool operator==(Card a, Card b)
+{
+    return a.getRank() == b.getRank() && a.getSuit() == b.getSuit();
+}

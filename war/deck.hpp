@@ -1,53 +1,55 @@
 #include "card.hpp"
 #include <iostream>
-#include <stdlib.h>
 #include <vector>
-#include <iterator>
+#include <algorithm>
 
-
-class Deck {
+class Deck
+{
   public:
-    Deck(int s) : size(s), deck[size]() {}
-    void allocateDeck();
-    bool searchDeck(Card, int);
+    Deck() {}
     ~Deck() {}
-  private:
-    int size;
-    Card deck[size];
+   
+    void addCard(Card n)
+    {
+       deck.push_back(n);	    
+    }
+   
+    std::vector<Card> copyDeck()
+    {
+       return deck;
+    }
+    
+    void displayDeck()
+    {
+      for(unsigned int i = 0; i < deck.size(); ++i)
+      {
+	 std::cout << "Element[" << i << "] = " << deck[i].getRank() << std::endl;
+      }
+      std::cout << std::endl;
+    }
 
+    bool searchDeck(Card n)
+    {
+       if (std::find(deck.begin(), deck.end(), n) != deck.end())
+         return true;
+       else
+         return false;
+    }
+
+    private:
+      std::vector<Card> deck;
 };
 
-
-void Deck::allocateDeck()
+Deck generateDeck()
 {
-  bool found = false;
-  for (int i = 0; i < size; i++)
-  {
-    Card n = newCard();
+    Card newCard(Ace, Spades);
+    Deck myDeck;
+    myDeck.addCard(newCard);
+
     
-    found = searchDeck(n, i);
-    if (found == false)
-      deck[i] = n;
-    else
-      --i;
-  }
+    Card newCard2(Ace, Spades);
+    bool cardThere = myDeck.searchDeck(newCard2);
+    if (cardThere)
+        std::cout << "true\n";
+
 }
-
-
-Card newCard()
-{
-  Card n(static_cast<Rank>(rand() % End), static_cast<Suit>(rand() % Blank));
-  return n;
-}
-
-bool Deck::searchDeck(Card n, int nsize)
-{
-  for (int i = 0; i < nsize; i++)
-  {
-    if (n == deck[i])
-      return true;
-  }
-  return false;
-}
-
-
