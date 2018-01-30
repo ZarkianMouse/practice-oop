@@ -50,6 +50,7 @@ class Card {
 
   Rank getRank() const {return rank;};
   Suit getSuit() const {return suit;};
+  std::string displayCard();
   // Declares a destructor. If we had acquired
   // resources, we should release them here. If not,
   // DO NOT DEFINE A DESTRUCTOR.
@@ -64,4 +65,52 @@ private:
 bool operator==(Card a, Card b)
 {
     return a.getRank() == b.getRank() && a.getSuit() == b.getSuit();
+}
+
+std::string Card::displayCard()
+{
+   std::string myCard;
+   switch(rank)
+   {
+      case Ace   :  myCard = "Ace of ";
+           break;
+      case Two   :  myCard = "2 of ";
+           break;
+      case Three :  myCard = "3 of ";
+           break;
+      case Four  :  myCard = "4 of ";
+           break;
+      case Five  :  myCard = "5 of ";
+           break;
+      case Six   :  myCard = "6 of ";
+           break;
+      case Seven :  myCard = "7 of ";
+           break;
+      case Eight :  myCard = "8 of ";
+           break;
+      case Nine  :  myCard = "9 of ";
+           break;
+      case Ten   :  myCard = "10 of ";
+           break;
+      case Jack  :  myCard = "Jack of ";
+           break;
+      case Queen :  myCard = "Queen of ";
+           break;
+      case King  :  myCard = "King of ";
+           break;
+   }
+   
+
+   switch(suit)
+   {
+      case Hearts   :  myCard = myCard + "Hearts";
+           break;
+      case Diamonds :  myCard = myCard + "Diamonds";
+           break;
+      case Clubs    :  myCard = myCard + "Clubs";
+           break;
+      case Spades   :  myCard = myCard + "Spades";
+           break;
+   }
+   return myCard;
 }

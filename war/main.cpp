@@ -1,6 +1,4 @@
-
-#include "player.hpp"
-#include "deck.hpp"
+#include "game.hpp"
 #include <iostream>
 #include <vector>
 
@@ -13,32 +11,19 @@
 //    - equal... flip some extra cards, recurse
 //    - winning player gets sacrifices (how?)
 
-const int SIZE = 52;
+const int DECK_SIZE = 52;
 
 int
  main() {
     std::cout << "hello world\n";
 
-    test();
     std::cout << "3...2...1...War!!\n";
     
-    Player p1("Player 1");
-    Player p2("Player 2");
-    std::cout << p1.getName() << " vs. " << p2.getName() << '\n';
+    War newGame;
     
-    Deck myDeck = generateDeck(SIZE);
-    std::cout << "Deck generated\n";
+    playWar(newGame, DECK_SIZE);
+
+    newGame.declareWinner();
     
-    Deck deckP1;
-    Deck deckP2;
-    divideDeck(myDeck, deckP1, deckP2);
-    std::cout << "Decks divided\n";
-
-    //gameLoop
-    //revealCard1
-    //revealCard2
-    //declareWinner
-    //discard
-
-    //endGame
+    std::cout << "Thanks for playing\n";
 }

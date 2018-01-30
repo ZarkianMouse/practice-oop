@@ -1,3 +1,4 @@
+
 #include <iostream>
 
 class Player {
@@ -5,17 +6,11 @@ class Player {
     Player(std::string n) : name(n), score(0) {}
     ~Player() {}
 
-    std::string getName() {return name;}
+    const std::string getName() {return name;}
     int getScore() {return score;}
+    void updateScore() {++score;}
   private:
     std::string name;
     int score;
 };
 
-
-void test()
-{
-  Player p1("Joe");
-  std::cout << p1.getName() << " " << p1.getScore() << '\n';
-  return;
-}

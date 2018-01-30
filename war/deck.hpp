@@ -58,7 +58,7 @@ Deck generateDeck(int size)
     bool cardThere;
     for(unsigned int i = 0; i < size; ++i)
     {
-       Card n(static_cast<Rank>(rand() % End), static_cast<Suit>(rand() % Blank));
+       Card n(static_cast<Rank>(rand()% End), static_cast<Suit>(rand()% Blank));
        cardThere = deck.searchDeck(n);
        if (!cardThere)
           deck.addCard(n);
@@ -67,6 +67,7 @@ Deck generateDeck(int size)
     }
     return deck;
 }
+
 
 void divideDeck(Deck orig, Deck &p1, Deck &p2)
 {
