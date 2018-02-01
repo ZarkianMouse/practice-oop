@@ -67,6 +67,11 @@ bool operator==(Card a, Card b)
     return a.getRank() == b.getRank() && a.getSuit() == b.getSuit();
 }
 
+bool operator!=(Card a, Card b)
+{
+    return !(a == b);
+}
+
 std::string Card::displayCard()
 {
    std::string myCard;
