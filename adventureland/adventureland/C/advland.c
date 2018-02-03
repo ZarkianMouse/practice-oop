@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <conio.h>
+#include "gconio.h"
 #include <ctype.h>
 
 signed int yes_no(void);
