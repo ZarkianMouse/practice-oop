@@ -7,7 +7,7 @@
 
 void welcome()
 {
-   std::cout << "W E L C O M E   T O \n A D V E N T U R E - 1 \n\n\n\n\n"
+   std::cout << "W E L C O M E   T O   A D V E N T U R E - 1 \n\n\n\n\n"
    << "The object of your adventure is to find treasures and return them\n"
    << "to the proper place for you to accumulate points.  I'm your clone.  "
    << "Give me\ncommands that consist of a verb & noun, "
@@ -22,5 +22,5 @@ void welcome()
    << "you were.\n\n\n"
    << "HAPPY ADVENTURING!!!\n\n\n\n\n"
    << "************************** Press any key to continue"
-   << " **************************"
+   << " **************************";
 }
