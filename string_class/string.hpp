@@ -1,22 +1,22 @@
+#pragma once
+
+
 /* String class, by Naomi Burhoe
    Copyright Spring 2018        */
 
-class String {
+class string {
   public :
-     String(const char* s)
-       : len(std::strlen(s)), str(new char[len])
-     {
-        std::strcpy(str, s, len);
-     }
+
+     string() {}
+
+     string(const char* s);
      
-     String(const string& s)
-       : str(s.str), len(s.len)
-     {}
-  
-     ~String()
-     {
-        delete [] str;
-     }
+     string(const string& s);
+
+     ~string();
+
+     void printStr();
+
   private :
      int len;
      char* str;
