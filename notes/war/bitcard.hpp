@@ -42,61 +42,11 @@ enum Suit {
 //
 class Card {
 public:
-  // Declares a constructor taking a rank and
-  // a suit as arguments. This allows me to write:
-  //
-  //    Card c{Ace, Spades}
-  //
-  // Constructors are used to initialize data members
-  // of the class and acquire resources (if any -- none
-  // are needed here).
-  Card(Rank r, Suit s);
-
-  // A copy constructor ALWAYS has the following
-  // form (except when you're an expert).
-  Card(const Card& c);
-
-  // A copy assignment operator ALWAYS has the
-  // following form:
-  //
-  // If you write:
-  //    c1 = c2;
-  // "this" is a pointer to c1.
-  Card& operator=(const Card& c);
-
-  // Accessor functions. Sometimes called
-  // observers.
-
-  // Returns the rank of the card.
-  //
-  // In-class member function definitions
-  // are implicitly inline.
-  Rank get_rank() const { return rank; }
-
-  // Returns the suit of the card.
-  Suit get_suit() const { return suit; }
-
-  // Mutators or modifiers functions.
-  //
-  // Think before adding mutator functions. Don't
-  // blindly add set_ functions for private data
-  // members --- they're probably private for a
-  // reason.
-  void set_rank(Rank r) { rank = r; }
-  void set_suit(Suit s) { suit = s; }
-
-  // A friend can access the private members of
-  // this class.
-  //
-  // Be careful of using friends. This can indicate
-  // that separate (logical) components are not in
-  // fact separate, but depend on each other in other
-  // ways.
-  // friend bool operator==(Card a, Card b);
-
+  Card(Rank r, Suit s)
+    : bits((unsigned)s << 4 | (unsigned)r)
+  { }
 private:
-  Rank rank;
-  Suit suit;
+  unsigned char bits;
 };
 
 

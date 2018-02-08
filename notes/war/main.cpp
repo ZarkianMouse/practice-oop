@@ -12,10 +12,17 @@
 //    - equal... flip some extra cards, recurse
 //    - winning player gets sacrifices (how?)
 
+
+inline int foo() { return 42; }
+
 int
 main()
 {
   std::cout << "hello world\n";
+
+  int k = foo();
+
+  Card c{Ace, Spades};
 
   Rank r1 = King;
   Rank r2 = Queen;
