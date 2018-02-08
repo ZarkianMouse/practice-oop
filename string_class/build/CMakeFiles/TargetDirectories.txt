@@ -1,3 +1,0 @@
-/home/naomi/practice-oop/string_class/build/CMakeFiles/edit_cache.dir
-/home/naomi/practice-oop/string_class/build/CMakeFiles/rebuild_cache.dir
-/home/naomi/practice-oop/string_class/build/CMakeFiles/string.dir
