@@ -1,2 +1,0 @@
-/usr/bin/ar qc libcards.a  CMakeFiles/cards.dir/card.cpp.o CMakeFiles/cards.dir/deck.cpp.o
-/usr/bin/ranlib libcards.a
