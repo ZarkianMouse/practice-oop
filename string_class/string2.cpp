@@ -11,14 +11,24 @@ mstring::mstring(const char* s)
 
 
 mstring::mstring(const mstring& s)
-   : str(s.str), len(s.len)
-{}
+   : len(s.len), str(new char[len])
+{
+   std::strcpy(str, s.str);
+}
 
 
 mstring& mstring::operator=(mstring& b)
 {
     len = b.getLen();
-    std::strcpy(str, b.getStr());
+    int k = 0;
+
+
+    while (k < len)
+    {
+        str[k] = b.str[k];
+        ++k;
+    }
+
     return *this;
 }
 
@@ -92,7 +102,11 @@ bool operator<(const mstring& s1, const mstring &s2)
             else if (s1.str[k] < s2.str[k])
                return false;
             else if (k > i)
-               return true;
+            {
+                std::cout << s1.str << " = " << s2.str << '\n';
+                return true;
+            }
+
         }
     }
     return true;
