@@ -1,19 +1,21 @@
-#pragma once
+#ifndef STRING_HPP
+#define STRING_HPP
+
 
 
 /* String class, by Naomi Burhoe
    Copyright Spring 2018        */
 
-class string {
+class mstring {
   public :
 
-     string() {}
+     mstring() {}
 
-     string(const char* s);
-     
-     string(const string& s);
+     mstring(const char* s);
 
-     ~string();
+     mstring(const mstring& s);
+
+     ~mstring();
 
      void printStr();
 
@@ -21,3 +23,5 @@ class string {
      int len;
      char* str;
 };
+
+#endif // STRING_HPP

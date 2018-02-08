@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/naomi/practice-oop/string_class/main.cpp
+string.hpp
+/home/naomi/practice-oop/string_class/string.hpp
+iostream
+-
+
+/home/naomi/practice-oop/string_class/string.hpp
+
+/home/naomi/practice-oop/string_class/string2.cpp
+string.hpp
+/home/naomi/practice-oop/string_class/string.hpp
+iostream
+-
+stdio.h
+-
+string.h
+-
+
