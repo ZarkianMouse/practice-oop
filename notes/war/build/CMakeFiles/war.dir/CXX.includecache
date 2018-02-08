@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/naomi/practice-oop/notes/war/card.hpp
+iostream
+-
+
+/home/naomi/practice-oop/notes/war/game.cpp
+
+/home/naomi/practice-oop/notes/war/main.cpp
+card.hpp
+/home/naomi/practice-oop/notes/war/card.hpp
+iostream
+-
+
+/home/naomi/practice-oop/notes/war/player.cpp
+

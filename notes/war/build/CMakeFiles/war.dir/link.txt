@@ -1,0 +1,1 @@
+/usr/bin/c++   -std=c++1z   CMakeFiles/war.dir/player.cpp.o CMakeFiles/war.dir/game.cpp.o CMakeFiles/war.dir/main.cpp.o  -o war -rdynamic libcards.a 
