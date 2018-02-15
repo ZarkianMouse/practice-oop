@@ -1,0 +1,3 @@
+/home/naomi/practice-oop/war/build/CMakeFiles/rebuild_cache.dir
+/home/naomi/practice-oop/war/build/CMakeFiles/edit_cache.dir
+/home/naomi/practice-oop/war/build/CMakeFiles/main.dir

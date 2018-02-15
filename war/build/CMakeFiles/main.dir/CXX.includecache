@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/naomi/practice-oop/war/bitcard.hpp
+iostream
+-
+
+/home/naomi/practice-oop/war/wmain.cpp
+iostream
+-
+bitcard.hpp
+/home/naomi/practice-oop/war/bitcard.hpp
+
