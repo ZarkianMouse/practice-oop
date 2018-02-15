@@ -1,0 +1,42 @@
+What is a value?
+* a member of the set of possible interpretations of any possibly-infinite sequence of symbols
+* the representation of some entity that can be manipulated by a program
+
+What is an entity?
+* an object that exists and is distinguishable from other objects
+* abstract, not necessarily related to objects in OOP
+
+What is an object?
+* set of bits associated with the representation of values/entities in a computer
+
+What is a type?
+* a classification of data which tells the compiler or interpreter how the programmer intends to use the data
+ex. Rank/Suit in a Card class
+
+What is a narrowing conversion?
+* Occurs when members of a larger set of values are grouped into a smaller set of values
+ex. int to enum
+may occur for the sake of preventing loss of information and/or providing clarity to the audience as to what the use of the data is
+ex purpose. defining a set of enums for Rank/Suit to be used to create a Card class...
+
+What is abstraction?
+* the process by which programmers hide all but relevant data about an object in order to reduce complexity and increase efficiency
+
+What does it mean to copy?
+* the object and its copy have the same value, but they aren't the same thing
+
+__________________________________________________________________________
+
+    - ~ ~ ~ -  entity              --- Problem: higher-level abstraction
+   (  value  )                  ---
+    - ~ ~ ~ -                  |
+   o    |^--type              \ /
+ _      |     interpret    _____ computer --> lower-level abstraction
+|_|     |                 |  _  | <--^
+ ^       -- type          | |_| | <-- object (0010) <-- value
+OOO          represent--> |_____|
+/.\
+/.\
+__________________________________________________________________________
+
+
