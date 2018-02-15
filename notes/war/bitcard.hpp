@@ -40,30 +40,66 @@ enum Suit {
 //    c1 == c2;
 //    c1 != c2;
 //
+// Our representation has this layout:
+//
+//    ssrrrr
+//
+// where s is a suit bit and r is a rank bit.
+
 class Card {
 public:
+
+  Card()
+  { }
+
   Card(Rank r, Suit s)
     : bits((unsigned)s << 4 | (unsigned)r)
   { }
+
+  Rank getRank() const
+  {
+    return (Rank)(0b001111 & bits); // 0xf & bits
+  }
+
+  Suit getSuit() const
+  {
+    return (Suit)(0b110000 & bits >> 4);
+  }
+
+  // We can somewhat optmize the performance of the
+  // == operator by comparing integer values;
+  bool operator==(Card c) const
+  {
+    return bits == c.bits;
+  }
+
+  bool operator!=(Card c) const
+  {
+    return bits != c.bits;
+
+  }
+
 private:
   unsigned char bits;
+
 };
 
 
 // Two cards are equal when they have the same
 // rank and suit.
-inline bool 
+/*inline bool 
 operator==(Card a, Card b) {
   return a.get_rank() == b.get_rank() && 
          a.get_suit() == b.get_suit();
-}
+}*/
 
 // If you define ==, then you had better define
 // != also.
+/*
 inline bool 
 operator!=(Card a, Card b) {
   return !(a == b);
-}
+}*/
 
 // When do you pass by value?
 // When do you pass by const reference?

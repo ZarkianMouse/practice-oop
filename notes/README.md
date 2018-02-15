@@ -28,3 +28,11 @@ https://www.youtube.com/watch?v=hlvAojWf-eU
 
 examples:
 http://www.cplusplus.com/forum/general/47667/
+
+
+MODULAR ARITHMETIC:
+resources:
+https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/what-is-modular-arithmetic
+
+( % % % % )
+
