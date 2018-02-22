@@ -1,0 +1,5 @@
+1. Write in comments for program
+2. Rewrite known entities like printf and loops
+3. Comment out difficult entities for later work
+4. Rewrite function and variable names, if necessary, for clarity
+5. Don't go crazy because the person sucked at commentary
