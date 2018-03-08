@@ -1,12 +1,8 @@
 #pragma once
 /*
-  In mathematics, a rational number is any number that can be expressed as the quotient 
-  or fraction p/q of two integers, a numerator p and a non-zero denominator q. Since q may
-  be equal to 1, every integer is a rational number. ... A real number that is not rational
-  is called irrational.
-
-
-
+  In mathematics, a rational number is any number that can be expressed
+  as the quotient or fraction p/q of two integers, a numerator p and a 
+  non-zero denominator q.
 
   Implement a rational number class. The class must:
 
@@ -16,18 +12,44 @@
     Support basic arithmetic operators (+, - , * /)
     Support input and output using istream (>>) and ostream (<<)
 
-  The input and output format form rational numbers should be of the form "n / d".
+  The input and output format for rational numbers should be of the form "n / d".
  
 */
 
 class Rational {
 public :
+   // Constructors
    Rational() {}
+   Rational(int n, int d) : p(n), q(d) {}
+
+   // enter and display (to be removed)
    void setNumber();
    void printNumber();
 
+   // for accessing values in main program
+   int getNum() const { return p;}
+   int getDenom() const { return q;}
+   void operator=(Rational b);
+ 
+   
+   // basic comparisons
+   friend bool operator==(Rational a, Rational b);
+   friend bool operator>(Rational a, Rational b);
+   friend bool operator<(Rational a, Rational b);
+
+   
+   // input/output
+   // operator>>
+   // operator<<
 
 private :
-   int p;
-   int q;
+   int p; // numerator
+   int q; // denominator
 };
+
+// other comparisons
+bool operator!=(Rational a, Rational b);
+
+// arithmetic operations
+Rational operator+(Rational, Rational);
+

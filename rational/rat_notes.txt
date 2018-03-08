@@ -1,0 +1,27 @@
+For greater than/less than quantities:
+
+ex. 4/5 > 4/6
+    4/6 < 4/5
+
+
+by cross-multiply:
+
+5 * 4 = 20
+6 * 4 = 24
+
+
+ex. 11/6 > 5/6
+    5/6 < 11/6
+
+5 * 6 = 30
+11 * 6 = 66
+
+
+for <:
+if (a.q == b.q)
+   if a.p < a.p
+     return true;
+else if (a.q < b.q)
+   if 
+
+else
