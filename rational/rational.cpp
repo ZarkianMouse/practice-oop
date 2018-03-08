@@ -8,6 +8,7 @@ void Rational::operator=(Rational b)
   q = b.getDenom();
 }
 
+
 // basic comparison operations
 bool operator==(Rational a, Rational b)
 {
@@ -24,6 +25,7 @@ bool operator<(Rational a, Rational b)
 {
   return (static_cast<double>(a.p)/a.q) < (static_cast<double>(b.p) / b.q);
 }
+
 
 // input/output operations
 std::istream& operator>>(std::istream& in, Rational &n)
@@ -54,6 +56,7 @@ std::ostream& operator<<(std::ostream& out, const Rational &n)
   return out;
 }
 
+
 // other comparison operations
 bool operator!=(Rational a, Rational b)
 {
@@ -70,6 +73,7 @@ bool operator<=(Rational a, Rational b)
    return (a < b) || (a == b);
 }
 
+
 // arithmetic operations
 Rational operator+(Rational a, Rational b)
 {
@@ -82,4 +86,36 @@ Rational operator+(Rational a, Rational b)
    return n;
 }
 
+Rational operator-(Rational a, Rational b)
+{
+   int num, denom;
 
+   num = a.getNum() * b.getDenom() - a.getDenom() * b.getNum();
+   denom = a.getDenom() * b.getDenom();
+
+   Rational n(num, denom);
+   return n;
+}
+
+Rational operator*(Rational a, Rational b)
+{
+   int num, denom;
+
+   num = a.getNum() * b.getNum();
+   denom = a.getDenom() * b.getDenom();
+
+   Rational n(num, denom);
+   return n;
+}
+
+Rational operator/(Rational a, Rational b)
+{
+   int num, denom;
+
+   num = a.getNum() * b.getDenom();
+   denom = a.getDenom() * b.getNum();
+
+   Rational n(num, denom);
+   return n;
+
+}

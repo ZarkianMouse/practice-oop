@@ -25,6 +25,8 @@ public :
    // for accessing values in main program
    int getNum() const { return p;}
    int getDenom() const { return q;}
+
+   // assignment
    void operator=(Rational b);
  
    
@@ -50,4 +52,7 @@ bool operator<=(Rational, Rational);
 
 // arithmetic operations
 Rational operator+(Rational, Rational);
+Rational operator-(Rational, Rational);
+Rational operator*(Rational, Rational);
+Rational operator/(Rational, Rational);
 
