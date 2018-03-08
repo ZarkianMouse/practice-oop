@@ -1,14 +1,38 @@
 #include <iostream>
 #include "rational.hpp"
 
-void Rational::setNumber()
+// assignment
+void Rational::operator=(Rational b)
+{
+  p = b.getNum();
+  q = b.getDenom();
+}
+
+// basic comparison operations
+bool operator==(Rational a, Rational b)
+{
+   return (a.p * b.q) == (a.q * b.p);
+}
+
+bool operator>(Rational a, Rational b)
+{
+ 
+  return (static_cast<double>(a.p)/a.q) > (static_cast<double>(b.p) / b.q);
+}
+
+bool operator<(Rational a, Rational b)
+{
+  return (static_cast<double>(a.p)/a.q) < (static_cast<double>(b.p) / b.q);
+}
+
+// input/output operations
+std::istream& operator>>(std::istream& in, Rational &n)
 {
    int num, denom;
-   std::cout << "Enter numerator\n";
+   std::cout << "num: ";
    std::cin >> num;
 
-   bool flag;
-   std::cout << "Enter denominator\n";
+   std::cout << "denom: ";
    while(std::cin >> denom)
    {
       if (std::cin.fail())
@@ -19,67 +43,37 @@ void Rational::setNumber()
          break;
    }
    
-   p = num;
-   q = denom;
-   return;
+   n.p = num;
+   n.q = denom;
+   return in;
 }
 
-void Rational::printNumber()
+std::ostream& operator<<(std::ostream& out, const Rational &n)
 {
-   std::cout << p << " / " << q << std::endl;
-   return;
+  std::cout << n.p << " / " << n.q;
+  return out;
 }
 
-void Rational::operator=(Rational b)
-{
-  p = b.getNum();
-  q = b.getDenom();
-}
-
-bool operator==(Rational a, Rational b)
-{
-   return (a.p * b.q) == (a.q * b.p);
-}
-
+// other comparison operations
 bool operator!=(Rational a, Rational b)
 {
   return !(a == b);
-}
-
-bool operator>(Rational a, Rational b)
-{
- 
-  return (static_cast<double>(a.p)/a.q) > (static_cast<double>(b.p) / b.q);
-}
-
-
-bool operator<(Rational a, Rational b)
-{
-  return (static_cast<double>(a.p)/a.q) < (static_cast<double>(b.p) / b.q);
-}
-
-/*
-bool operator<=(Rational a, Rational b)
-{
-   return (a < b) || (a == b);
 }
 
 bool operator>=(Rational a, Rational b)
 {
    return (a > b) || (a == b);
 }
-*/
 
+bool operator<=(Rational a, Rational b)
+{
+   return (a < b) || (a == b);
+}
+
+// arithmetic operations
 Rational operator+(Rational a, Rational b)
 {
    int num, denom;
-   
-   std::cout << a.getNum() << " * " << b.getDenom() << " = "
- 	     << a.getNum() * b.getDenom() << '\n'
-             << b.getNum() << " * " << a.getDenom() << " = "
-             << b.getNum() * a.getDenom() << '\n'
-             << a.getDenom() << " * " << b.getDenom() << " = "
-             << a.getDenom() * b.getDenom() << '\n';
 
    num = a.getNum() * b.getDenom() + a.getDenom() * b.getNum();
    denom = a.getDenom() * b.getDenom();
@@ -87,3 +81,5 @@ Rational operator+(Rational a, Rational b)
    Rational n(num, denom);
    return n;
 }
+
+

@@ -22,10 +22,6 @@ public :
    Rational() {}
    Rational(int n, int d) : p(n), q(d) {}
 
-   // enter and display (to be removed)
-   void setNumber();
-   void printNumber();
-
    // for accessing values in main program
    int getNum() const { return p;}
    int getDenom() const { return q;}
@@ -33,14 +29,14 @@ public :
  
    
    // basic comparisons
-   friend bool operator==(Rational a, Rational b);
-   friend bool operator>(Rational a, Rational b);
-   friend bool operator<(Rational a, Rational b);
+   friend bool operator==(Rational, Rational);
+   friend bool operator>(Rational, Rational);
+   friend bool operator<(Rational, Rational);
 
    
    // input/output
-   // operator>>
-   // operator<<
+   friend std::istream& operator>>(std::istream&, Rational &);
+   friend std::ostream& operator<<(std::ostream&, const Rational &);
 
 private :
    int p; // numerator
@@ -48,7 +44,9 @@ private :
 };
 
 // other comparisons
-bool operator!=(Rational a, Rational b);
+bool operator!=(Rational, Rational);
+bool operator>=(Rational, Rational);
+bool operator<=(Rational, Rational);
 
 // arithmetic operations
 Rational operator+(Rational, Rational);

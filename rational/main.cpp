@@ -6,42 +6,58 @@
 int main()
 {
    std::cout << "Hello there\n";
+ 
+   // default construction
    Rational num;
-   num.setNumber();
-   num.printNumber();
+   // testing >>
+   std::cin >> num;
+   // testing <<
+   //std::cout << "num = " << num << '\n';
 
-   /*
+   std::cout << "\nTesting Comparison Operators\n";
    Rational num2;
-   num2.setNumber();
-   num2.printNumber();
-   std::cout << "num == num2\n";
+   std::cin >> num2;
+   
+   /*
+   // testing ==
+   std::cout << num << " == " << num2 << ": ";
    if (num == num2)
       std::cout << "true\n";
+   else
+      std::cout << "false\n";
    
-   Rational num3;
-   num3.setNumber();
-   num3.printNumber();
-   std::cout << "num != num3\n";
-   if (num != num3)
+   // testing !=
+   std::cout << num << " != " << num2 << ": ";
+   if (num != num2)
       std::cout << "true\n";
+   else
+      std::cout << "false\n";
 
-   std::cout << "num + num2\n";
-   num.printNumber();
-   std::cout << " + ";
-   num2.printNumber();
-   std::cout << " = ";
-   num3 = (num + num2);
-   num3.printNumber();
-   std::cout << '\n';
+   // testing <=
+   std::cout << num << " <= " << num2 << ": ";
+   if (num <= num2)
+      std::cout << "true\n";
+   else
+      std::cout << "false\n";
 
-*/
-   Rational num2;
-   num2.setNumber();
-   num2.printNumber();
+   // testing assignments, and for use in next comparison
+   Rational num3 = num2;
+   num2 = num;
+   num = num3;
+
+   // testing >=
+   std::cout << num << " >= " << num2 << ": ";
+   if (num >= num2)
+      std::cout << "true\n";
+   else
+       std::cout << "false\n"; */
+
+   std::cout << "\nTesting Arithmetic Operators\n";
+   // testing +
+   std::cout << num << " + " << num2 << " = ";
+   num3 = num + num2;
+   std::cout << num3 << '\n';
    
-   std::cout << "num < num2\n";
-   if (num < num2)
-      std::cout << "true\n";
 }
 
 
