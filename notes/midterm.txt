@@ -32,11 +32,16 @@ __________________________________________________________________________
     - ~ ~ ~ -                  |
    o    |^--type              \ /
  _      |     interpret    _____ computer --> lower-level abstraction
-|_|     |                 |  _  | <--^
- ^       -- type          | |_| | <-- object (0010) <-- value
+|_|     |           ^---- |  _  | <--^
+ ^       -> type          | |_| | <-- object (0010) <-- value
 OOO          represent--> |_____|
 /.\
 /.\
 __________________________________________________________________________
 
+What does it mean for a data type to be type safe?
+Prevents misuse of objects
+
+What is an enum?
+A list of names
 
