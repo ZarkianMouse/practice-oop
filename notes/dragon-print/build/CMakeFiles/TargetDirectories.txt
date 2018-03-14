@@ -1,3 +1,0 @@
-/home/naomi/practice-oop/notes/dragon-print/build/CMakeFiles/edit_cache.dir
-/home/naomi/practice-oop/notes/dragon-print/build/CMakeFiles/rebuild_cache.dir
-/home/naomi/practice-oop/notes/dragon-print/build/CMakeFiles/dragon.dir
