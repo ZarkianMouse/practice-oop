@@ -42,64 +42,60 @@ enum Suit {
 //
 // Our representation has this layout:
 //
-//    ssrrrr
+//    00ssrrrr  (8 bits)
 //
 // where s is a suit bit and r is a rank bit.
-
 class Card {
 public:
+  // The default card is indeterminate. This is just
+  // like writing:
+  //
+  //  int x; // indeterminate
+  Card() = default;
 
-  Card()
-  { }
-
+  // Use c-style casts to make r and s unsigned integers.
   Card(Rank r, Suit s)
     : bits((unsigned)s << 4 | (unsigned)r)
   { }
 
-  Rank getRank() const
-  {
+  Rank get_rank() const {
     return (Rank)(0b001111 & bits); // 0xf & bits
   }
 
-  Suit getSuit() const
-  {
-    return (Suit)(0b110000 & bits >> 4);
+  Suit get_suit() const {
+    return (Suit)((0b110000 & bits) >> 4);
   }
 
-  // We can somewhat optmize the performance of the
-  // == operator by comparing integer values;
-  bool operator==(Card c) const
-  {
+  // We can somewhat optimize the performance of the
+  // == operator by comparing integer values.
+  bool operator==(Card c) const {
     return bits == c.bits;
   }
 
-  bool operator!=(Card c) const
-  {
+  bool operator!=(Card c) const {
     return bits != c.bits;
+  }
 
+  // You may, from time to time see this. This is
+  // called a friend function definition. A friend
+  // function definition is NOT a member of the 
+  // class. This operator actually lives outside the
+  // class, but has access to the private members
+  // of Card.
+  //
+  // This appears from time to time.
+  friend bool operator==(Card a, Card b) {
+    return a.bits == b.bits;
   }
 
 private:
   unsigned char bits;
-
 };
 
+// I can't do this yet.
+Card c;
 
-// Two cards are equal when they have the same
-// rank and suit.
-/*inline bool 
-operator==(Card a, Card b) {
-  return a.get_rank() == b.get_rank() && 
-         a.get_suit() == b.get_suit();
-}*/
 
-// If you define ==, then you had better define
-// != also.
-/*
-inline bool 
-operator!=(Card a, Card b) {
-  return !(a == b);
-}*/
 
 // When do you pass by value?
 // When do you pass by const reference?
