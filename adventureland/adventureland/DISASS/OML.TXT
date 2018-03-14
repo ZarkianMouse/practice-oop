@@ -26,7 +26,7 @@ Locations:
 (25)    hidden grove.
 (26)    quick-sand bog.
 (27)    memory RAM of an IBM-PC.  I took a wrong turn!
-(28)    branch on the top of an old oak tree.                                           To the east I see a meadow beyond a lake.
+(28)    branch on the top of an old oak tree.                              To the east I see a meadow beyond a lake.
 (29)     
 (30)     
 (31)     

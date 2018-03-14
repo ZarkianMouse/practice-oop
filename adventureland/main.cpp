@@ -22,6 +22,7 @@
 #include <limits>
 #include <cstring>
 #include <string>
+#include <curses.h>
 #include "conio.h"
 #include "advland.hpp"
 #include "advland.h"
@@ -63,12 +64,12 @@ int main()
       sf = 0;
 
       std::cin.ignore();
-      printf("\nUse saved game (Y or N)? ");
+      printw("\nUse saved game (Y or N)? ");
 
       
       if (yes_no()) // yes
       {
-	printf("Is previously saved game now on the current disk? ");
+	printw("Is previously saved game now on the current disk? ");
 	if (yes_no()) // yes
 	{
 	  fd = fopen("ADVEN-1.DAT","rb");
@@ -99,10 +100,10 @@ int main()
 	  lx--;
 	  if (lx < 0)
 	  {
-	    printf("light has run out!\n");
+	    printw("light has run out!\n");
 	    IA[9] = 0;
 	  }
-	  else if (lx < 25) printf("light runs out in %u turns!",lx);
+	  else if (lx < 25) printw("light runs out in %u turns!",lx);
 	}
 	NV[0] = 0;
 	turn();
@@ -110,7 +111,7 @@ int main()
     }
   }
 
-    std::cout << "Thanks for playing\n";
+    printw("Thanks for playing\n");
     return 0;
 }
 
@@ -139,7 +140,7 @@ int yes_no()
     ch = getch();
     if (ch > 96) ch = ch - 32;
   } while (ch!=89 && ch!=78);
-   printf("%c\n",ch);
+   printw("%c\n",ch);
   return(ch==89);  // 1 if Y, 0 if N
 }
 
@@ -148,39 +149,20 @@ void welcome()
 {
   clrscr();
   
-  Sleep(1);
-  std::cout << "WELCOME TO ADVENTURE - 1" << std::endl;
-  Sleep(1);
-  std::cout << "The object of your adventure is to find" << std::endl;
-  Sleep(1);
-  std::cout << "treasures and return them" << std::endl;
-  Sleep(1);
-  std::cout << "to the proper place for you to accumulate " << std::endl;
-  Sleep(1);
-  std::cout << "points.  I'm your clone.  Give me" << std::endl;
-  Sleep(1);
-  std::cout << "commands that consist of a verb & noun," << std::endl;
-  Sleep(1);
-  std::cout << "i.e. GO EAST, TAKE KEY, CLIMB TREE," << std::endl;
-  Sleep(1);
-  std::cout << "SAVE GAME, TAKE INVENTORY, FIND AXE, etc." << std::endl;
-  Sleep(1);
-  std::cout << "You'll need some special items to do some " << std::endl;
-  Sleep(1);
-  std::cout << "things, but I'm sure that you'll be a" << std::endl;
-  Sleep(1);
-  std::cout << "good adventurer and figure these things" << std::endl;
-  Sleep(1);
-  std::cout << "out (which is most of the fun of this" << std::endl;
-  Sleep(1);
-  std::cout << "game)\n\nNote that going in the opposite" << std::endl;
-  Sleep(1);
-  std::cout << "direction won't always get you back to" << std::endl;
-  Sleep(1);
-  std::cout << "where you were.\n\n\nHAPPY ADVENTURING\n\n\n\n\n";
-  Sleep(2);
-  empty_keyboardbuffer();
-  std::cout << "********************PRESS ANY KEY TO CONTINUE*******************\n\n\n\n\n\n\n";
+  printw("\nWELCOME TO ADVENTURE - 1\n\n\n");
+  printw("The object of your adventure is to find treasures and return ");
+  printw("them to the proper place for you to accumulate points. ");
+  printw("I'm your clone.  Give me commands that consist of a verb ");
+  printw("and a noun, i.e. GO EAST, TAKE KEY, CLIMB TREE, SAVE ");
+  printw("GAME, TAKE INVENTORY, FIND AXE, etc.  You'll need some ");
+  printw("special items to do some things, but I'm sure that you'll ");
+  printw("be a good adventurer and figure these things out (which ");
+  printw("is most of the fun of this game)\n\nNote that going in");
+  printw(" the opposite direction won't always get you back to where");
+  printw(" you were.\n\n\nHAPPY ADVENTURING\n\n\n\n\n\n");
+  
+empty_keyboardbuffer();
+  printw("********************PRESS ANY KEY TO CONTINUE*******************\n");
   while (getch()==0);
   clrscr();
 }
@@ -241,22 +223,24 @@ void welcome()
 int get_input()
 {
   int i,j;              // counting variables
-  char *word[2];        // first and second string
+  char *word[2];       // first and second string
   const char  *s;
 
   std::string tps1, tps2;
 
   // reads in commands for clone
-  printf("\nTell me what to do? \n ");
+  printw("\nTell me what to do? \n ");
+  refresh();
+
   std::cin >> tps1 >> tps2;
   tps1 = tps1 + " " + tps2;
   // changes input string to c_string for use in other parts of program
   strcpy(tps, tps1.c_str());
 
-
   // changes values in input string to uppercase for use in other comparisons
   for (i=0;i<length(tps);i++) tps[i]=toupper(tps[i]);
-  std::cout << "You entered: " << *tps << '\n';
+  printw("You entered: %s\n", tps);
+  refresh();
 
   // checks individually entered words
   i = 0;
@@ -294,7 +278,8 @@ int get_input()
   }
   if ((NV[0] < 1) || (word[1][0]!='\0' && NV[1] < 1))
   {
-    printf("You use word(s) I don't know.!\n");
+    printw("You use word(s) I don't know.!\n");
+    refresh();
     return(1);
   }
   else return(0);
@@ -309,44 +294,44 @@ void look()
   int k;        /* Flag */
   int i,j;
 
-  if (df && (IA[9]!=-1 && IA[9]!=r)) printf("I can't see.  It's too dark!\n");
+  if (df && (IA[9]!=-1 && IA[9]!=r)) printw("I can't see.  It's too dark!\n");
   else
   {
     if (RSS[r][0] == '*') printf(RSS[r]+1);
     else
     {
-      printf("I'm in a %s",RSS[r]);
+      printw("I'm in a %s",RSS[r]);
     }
     k = -1;
     for (i=0;i<IL;i++)
     {
       if (k && (IA[i]==r))
       {
-	printf("\n\nVISIBLE ITEMS HERE:\n");
+	printw("\n\nVISIBLE ITEMS HERE:\n");
 	k = 0;
       }
       if (IA[i] == r)
       {
 	j = get_item_string(i);
-	if ((wherex() + j + 3) > MAXLINE) printf("\n");
-	printf("%.*s.  ",j,IAS[i]);
+	if ((wherex() + j + 3) > MAXLINE) printw("\n");
+	printw("%.*s.  ",j,IAS[i]);
       }
     }
-    printf("\n");
+    printw("\n");
     k = -1;
     for (i=0;i<6;i++)
     {
       if (k && (RM[r][i]!=0))
       {
-	printf("\nObvious exits: \n");
+	printw("\nObvious exits: \n");
 	k = 0;
       }
       if (RM[r][i]!=0)
       {
-	printf("%s ",NVS[1][i + 1]);
+	printw("%s ",NVS[1][i + 1]);
       }
     }
-    printf("\n\n");
+    printw("\n\n");
   }
 }
 
@@ -357,17 +342,17 @@ void turn()
   if (NV[0] == 1 && NV[1] < 7)
   {
     i = (df) && (IA[9] != r) && (IA[9] != -1);
-    if (i) printf("Dangerous to move in the dark!\n");
-    if (NV[1] < 1) printf("Give me a direction too.\n");
+    if (i) printw("Dangerous to move in the dark!\n");
+    if (NV[1] < 1) printw("Give me a direction too.\n");
     else
     {
       j = RM[r][NV[1] - 1];
-      if (j == 0 && !i) printf("I can't go in that direction.\n");
+      if (j == 0 && !i) printw("I can't go in that direction.\n");
       else
       {
 	if (j == 0 && i)
 	{
-	  printf("I fell down and broke my neck.\n");
+	  printw("I fell down and broke my neck.\n");
 	  j = RL;
 	  df = 0;
 	}
@@ -432,15 +417,15 @@ void action(int ac, int *ip)
   FILE *fd;
   int i,j,p;
 
-  if (ac > 101) printf("%s\n",MSS[ac - 50]);    /* Messages 52 and up */
-  if (ac > 0 && ac < 52) printf("%s\n",MSS[ac]);  /* Messages 1 - 51 */
+  if (ac > 101) printw("%s\n",MSS[ac - 50]);    /* Messages 52 and up */
+  if (ac > 0 && ac < 52) printw("%s\n",MSS[ac]);  /* Messages 1 - 51 */
   if (ac == 52)
   {
     j = 0;
     for (i=1;i<IL;i++) if (IA[i] == -1) j++;
     if (j >= MX)
     {
-      printf("I've too much to carry!\n");
+      printw("I've too much to carry!\n");
       if (NV[0] != 0) x = CL;
       y = 10;
     }
@@ -455,7 +440,7 @@ void action(int ac, int *ip)
   if (ac == 60) sf = sf ^ 1<<get_action_variable(ip,x);
   if (ac == 61)
   {
-    printf("I'm dead...\n");
+    printw("I'm dead...\n");
     r = RL-1;
     df = 0;
     look();
@@ -467,7 +452,7 @@ void action(int ac, int *ip)
   }
   if (ac == 63)
   {
-    printf("The game is now over.\nAnother game? ");
+    printw("The game is now over.\nAnother game? ");
     if (!yes_no())  /* No */ endflag = 1;
     else /* Yes */
     {
@@ -480,10 +465,10 @@ void action(int ac, int *ip)
   {
     j = 0;
     for (i=1;i<IL;i++) if (IA[i] == TR) if (IAS[i][0] == '*') j++;
-    printf("I've stored %u treasures.  On a scale\nof 0 to 100, that rates a %u.\n",j,j*100/TT);
+    printw("I've stored %u treasures.  On a scale\nof 0 to 100, that rates a %u.\n",j,j*100/TT);
     if (j == TT)
     {
-      printf("Well done.\nThe game is now over.\nAnother game? ");
+      printw("Well done.\nThe game is now over.\nAnother game? ");
       if (!yes_no())  /* No */ endflag = 1;
       else
       {
@@ -494,7 +479,7 @@ void action(int ac, int *ip)
   }
   if (ac == 66)
   {
-    printf("I'm carrying:\n");
+    printw("I'm carrying:\n");
     j = -1;
     for (i=0;i<IL;i++)
     {
@@ -506,7 +491,7 @@ void action(int ac, int *ip)
 	j = 0;
       }
     }
-    if (j) printf("Nothing!\n");
+    if (j) printw("Nothing!\n");
   }
   if (ac == 67) sf = 1 | sf;
   if (ac == 68) sf = sf ^ 1;
@@ -518,7 +503,7 @@ void action(int ac, int *ip)
   if (ac == 70) clrscr();
   if (ac == 71)
   {
-    printf("Is the current drive ready to receive the saved game? ");
+    printw("Is the current drive ready to receive the saved game? ");
     if (yes_no())
     {
       fd = fopen("ADVEN-1.DAT","wb");
@@ -529,7 +514,7 @@ void action(int ac, int *ip)
       for (i=0;i<IL;i++) putw(IA[i],fd);
       fclose(fd);
     }
-    printf("\n");
+    printw("\n");
   }
   if (ac == 72)
   {
@@ -581,7 +566,7 @@ void carry_drop()
   {
     if (NV[1] == 0)
     {
-      printf("What?\n");
+      printw("What?\n");
       f = 0;
     }
     else
@@ -593,7 +578,7 @@ void carry_drop()
       }
       if (NV[0] == 10 && l >= MX)
       {
-	printf("I've too much to carry!\n");
+	printw("I've too much to carry!\n");
 	f = 0;
       }
       else
@@ -622,7 +607,7 @@ void carry_drop()
 		    {
 		      IA[j] = -1;
 		      k = 3;
-		      printf("OK, \n");
+		      printw("OK, \n");
 		      j = IL;
 		    }
 		  }
@@ -633,7 +618,7 @@ void carry_drop()
 		    {
 		      IA[j] = r;
 		      k = 3;
-		      printf("OK, \n");
+		      printw("OK, \n");
 		      j = IL;
 		    }
 		  }
@@ -643,13 +628,13 @@ void carry_drop()
 	    }
 	  }
 	}
-	if (k == 1) printf("I'm not carrying it!\n");
-	if (k == 2) printf("I don't see it here.\n");
+	if (k == 1) printw("I'm not carrying it!\n");
+	if (k == 2) printw("I don't see it here.\n");
 	if (k == 0)
 	{
 	  if (!f3)
 	  {
-	    printf("It's beyond my power to do that.\n");
+	    printw("It's beyond my power to do that.\n");
 	    f = 0;
 	  }
 	}
@@ -657,8 +642,8 @@ void carry_drop()
       }
     }
   }
-  if (f) printf("I don't understand your command.\n");
-  else if (!f2) printf("I can't do that yet.\n");
+  if (f) printw("I don't understand your command.\n");
+  else if (!f2) printw("I can't do that yet.\n");
 }
 
 int length(const char *s)
