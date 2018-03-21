@@ -15,6 +15,7 @@ Necessary Components:
 
 Current Classes:
 1. Item
+
    The Item class contains a location element which corresponds
    to locations of objects listed in advland.h
    There are 60 possible locations, which initially
@@ -33,9 +34,11 @@ Current Classes:
 
 Future Classes:
 1. Room
+
    The Room class will contain a travel array element and a
    description element that will be designated by RM[]
    and RSS[] (see advland.h)
+
    This will require a declaration in main or as a global
    variable to simplify and clarify relationships
    between the current room and its associated
