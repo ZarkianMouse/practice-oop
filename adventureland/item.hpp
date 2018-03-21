@@ -3,16 +3,14 @@
 
 class Item {
 public :
-   Item()
-     : location(0) {}
-   Item(signed char l)
-     : location(l) {}
+   Item();
+   Item(signed char l);
 
    signed char getLocate() {return location; }
 
-   void operator=(int a) { location = a;}
-   bool operator==(int a) { return location == a; }
-   bool operator!=(int a) { return location != a; }
+   void operator=(int);
+   bool operator==(int);
+   bool operator!=(int);
 
 private :
    signed char location;

@@ -2,10 +2,25 @@
 #include <string>
 #include "item.hpp"
 
-Item::Item(std::string i) : item(i)
+Item::Item()
+  : location(0)
 {}
 
-void Item::printItem()
+Item::Item(signed char l)
+  : location(l)
+{}
+
+void Item::operator=(int a)
 {
-   std::cout << item;
-} 
+  location = a;
+}
+
+bool Item::operator==(int a)
+{
+  return location == a;
+}
+
+bool Item::operator!=(int a)
+{
+  return location != a;
+}
