@@ -26,10 +26,10 @@
 #include "conio.h"
 #include "advland.hpp"
 #include "advland.h"
-
+#include "item.hpp"
 
 /* dynamic global variables */
-signed char     IA[IL];                 /* object locations */
+Item     IA[IL];                 /* object locations */
 signed int      NV[2];                  /* word numbers, NV[0] = first, NV[1] = second */
 signed int      loadflag, endflag;      /* should we load or end? */
 signed int      f,f3,f2;
@@ -38,16 +38,15 @@ char   tps[80];                /* input string */
 // std::string tps;
 signed int      x,y;
 
+
 /* externals:
    IA[], I2[], loadflag, endflag, lx, df, sf, r, NV[] */
-
-
 int main()
 {
   int i;        //counting variable
   FILE *fd;     // load file handle
 
-  for (i=0;i<IL;i++) IA[i]=I2[i];       // reset object locations
+  for (i=0;i<IL;i++) IA[i] = I2[i];       // reset object locations
   loadflag = 1;
   endflag = 0;
   srand((unsigned)time(NULL));  // randomize
@@ -77,7 +76,7 @@ int main()
 	  lx = getw(fd);
 	  df = getw(fd);
 	  r = getw(fd);
-	  for (i=0;i<IL;i++) IA[i]=getw(fd);
+	  for (i=0;i<IL;i++) IA[i] = getw(fd);
 	  fclose(fd);
 	}
 	else loadflag = 1;      // HERE WE GO AGAIN...
@@ -166,54 +165,6 @@ empty_keyboardbuffer();
   while (getch()==0);
   clrscr();
 }
-
-/*void observeArea()
-{
-    std::cout << "Observing init area\n";
-   int k;        // Flag
-  int i,j;
-
-  if (df && (IA[9]!=-1 && IA[9]!=r)) printf("I can't see.  It's too dark!\n");
-  else
-  {
-    if (RSS[r][0] == '*') printf(RSS[r]+1);
-    else
-    {
-      printf("I'm in a %s",RSS[r]);
-    }
-    k = -1;
-    for (i=0;i<IL;i++)
-    {
-      if (k && (IA[i]==r))
-      {
-	printf("\n\nVISIBLE ITEMS HERE:\n");
-	k = 0;
-      }
-      if (IA[i] == r)
-      {
-	j = get_item_string(i);
-	if ((wherex() + j + 3) > MAXLINE) printf("\n");
-	printf("%.*s.  ",j,IAS[i]);
-      }
-    }
-    printf("\n");
-    k = -1;
-    for (i=0;i<6;i++)
-    {
-      if (k && (RM[r][i]!=0))
-      {
-	printf("\nObvious exits: \n");
-	k = 0;
-      }
-      if (RM[r][i]!=0)
-      {
-	printf("%s ",NVS[1][i + 1]);
-      }
-    }
-    printf("\n\n");
-  }
-
-}*/
 
 
 /* Evaluate user input */
@@ -486,8 +437,8 @@ void action(int ac, int *ip)
       if (IA[i] == -1)
       {
 	p = get_item_string(i);
-	if ((p + wherex() + 2) > MAXLINE) printf("\n");
-	printf("%.*s. ",p,IAS[i]);
+	if ((p + wherex() + 2) > MAXLINE) printw("\n");
+	printw("%.*s. ",p,IAS[i]);
 	j = 0;
       }
     }
@@ -511,7 +462,7 @@ void action(int ac, int *ip)
       putw(lx,fd);
       putw(df,fd);
       putw(r,fd);
-      for (i=0;i<IL;i++) putw(IA[i],fd);
+      for (i=0;i<IL;i++) putw(IA[i].getLocate(),fd);
       fclose(fd);
     }
     printw("\n");
@@ -520,7 +471,7 @@ void action(int ac, int *ip)
   {
     j = get_action_variable(ip,x);
     p = get_action_variable(ip,x);
-    i = IA[j];
+    i = IA[j].getLocate();
     IA[j] = IA[p];
     IA[p] = i;
   }
@@ -557,11 +508,14 @@ int get_action_variable(int *p, int x)
   return(C[x][*p] / 20);
 }
 
+
+/* NV[2]: word numbers, NV[0] = first, NV[1] = second */
 /* Can I carry or drop it? If so, do it. */
 void carry_drop()
 {
   int ll,i,j,l,k;
 
+  // 10 = TAK(E), 18 = DRO(P)
   if ((NV[0] == 10 || NV[0] == 18) && (!f3))
   {
     if (NV[1] == 0)
@@ -787,7 +741,7 @@ int check_logics()
    Takes actions based on input
    Variables used: MSS[], IA[], NV[], x, y, r, df, sf ...
 
-   int get_action_variable(int *ip, int x);
+   int get_action_variable(int *ip, int x);uu
    Purpose unclear
    Variables used: C[][]
 

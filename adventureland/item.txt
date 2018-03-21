@@ -1,0 +1,239 @@
+/* dynamic global variables */
+signed char     IA[IL];                 /* object locations */
+signed int      NV[2];                  /* word numbers, NV[0] = first, NV[1] = second */
+signed int      loadflag, endflag;      /* should we load or end? */
+signed int      f,f3,f2;
+signed int      r, lx, df, sf;
+char   tps[80];                /* input string */
+// std::string tps;
+signed int      x,y;
+
+void action(int ac, int *ip)
+// get object
+if (ac == 52)
+  {
+    j = 0;
+    for (i=1;i<IL;i++) if (IA[i] == -1) j++;
+    if (j >= MX)
+    {
+      printw("I've too much to carry!\n");
+      if (NV[0] != 0) x = CL;
+      y = 10;
+    }
+    else IA[get_action_variable(ip,x)] = -1;
+  }
+
+// drop object
+if (ac == 53) IA[get_action_variable(ip,x)] = r;
+
+// check inventory
+if (ac == 66)
+  {
+    printw("I'm carrying:\n");
+    j = -1;
+    for (i=0;i<IL;i++)
+    {
+      if (IA[i] == -1)
+      {
+	p = get_item_string(i);
+	if ((p + wherex() + 2) > MAXLINE) printw("\n");
+	printw("%.*s. ",p,IAS[i]);
+	j = 0;
+      }
+    }
+    if (j) printw("Nothing!\n");
+  }
+
+
+/* Discard unwanted string at end of item description */
+/* Externals:
+   IAS[] */
+/* Returns number of printable characters in item description */
+
+int get_item_string(int i)
+{
+  int p;
+
+  p = length(IAS[i]); /* points to back of string */
+  if (IAS[i][p-1] == '/')
+  {
+    do
+      p--;
+    while (p>0 && IAS[i][p-1]!='/');
+    if (IAS[i][p-1]!='/') p = length(IAS[i]); else p--;
+  }
+  return(p);
+}
+
+
+/* Externals: C[][] */
+int get_action_variable(int *p, int x)
+{
+  do
+  {
+    (*p)++;
+    if (*p < 1 || *p > 5) *p = 1;
+  } while (C[x][*p] % 20!=0);
+  return(C[x][*p] / 20);
+}
+
+
+/* NV[2]: word numbers, NV[0] = first, NV[1] = second */
+/* Can I carry or drop it? If so, do it. */
+void carry_drop()
+{
+  int ll,i,j,l,k;
+
+  // 10 = TAK(E), 18 = DRO(P)
+  if ((NV[0] == 10 || NV[0] == 18) && (!f3))
+  {
+    if (NV[1] == 0)
+    {
+      printw("What?\n");
+      f = 0;
+    }
+    else
+    {
+      if (NV[0] == 10)
+      {
+	l = 0;
+	for (i=0;i<IL;i++) if (IA[i] == -1) l++;
+      }
+      if (NV[0] == 10 && l >= MX)
+      {
+	printw("I've too much to carry!\n");
+	f = 0;
+      }
+      else
+      {
+	k = 0;
+	for (j=0;j<IL;j++)
+	{
+	  ll = length(IAS[j]) - 1;
+	  if (IAS[j][ll] == '/')
+	  {
+	    copystring(tps,IAS[j]);
+	    tps[ll] = '\0';     /* get one shorter */
+	    while (ll>1)
+	    {
+	      ll--;
+	      if (tps[ll] == '/')
+	      {
+		ll++;   /* first char in item name */
+		tps[ll+LN] = '\0';      /* make sure string is no longer than 3 chars */
+		if (comparestring(tps+ll,NVS[1][NV[1]])==0)
+		{
+		  if (NV[0] == 10)
+		  {
+		    if (IA[j] != r) k = 2;
+		    else
+		    {
+		      IA[j] = -1;
+		      k = 3;
+		      printw("OK, \n");
+		      j = IL;
+		    }
+		  }
+		  else
+		  {
+		    if (IA[j] != -1) k=1;
+		    else
+		    {
+		      IA[j] = r;
+		      k = 3;
+		      printw("OK, \n");
+		      j = IL;
+		    }
+		  }
+		}
+		ll = 1;
+	      }
+	    }
+	  }
+	}
+	if (k == 1) printw("I'm not carrying it!\n");
+	if (k == 2) printw("I don't see it here.\n");
+	if (k == 0)
+	{
+	  if (!f3)
+	  {
+	    printw("It's beyond my power to do that.\n");
+	    f = 0;
+	  }
+	}
+	else f = 0;
+      }
+    }
+  }
+  if (f) printw("I don't understand your command.\n");
+  else if (!f2) printw("I can't do that yet.\n");
+}
+
+/* Evaluate user input */
+/* Externals:
+   tps, NV[], NVS[][] */
+
+int get_input()
+{
+  int i,j;              // counting variables
+  char *word[2];       // first and second string
+  const char  *s;
+
+  std::string tps1, tps2;
+
+  // reads in commands for clone
+  printw("\nTell me what to do? \n ");
+  refresh();
+
+  std::cin >> tps1 >> tps2;
+  tps1 = tps1 + " " + tps2;
+  // changes input string to c_string for use in other parts of program
+  strcpy(tps, tps1.c_str());
+
+  // changes values in input string to uppercase for use in other comparisons
+  for (i=0;i<length(tps);i++) tps[i]=toupper(tps[i]);
+  printw("You entered: %s\n", tps);
+  refresh();
+
+  // checks individually entered words
+  i = 0;
+  while (tps[i]==' ' && tps[i]!='\0') i++;  // go to first word
+  word[0] = tps+i;
+  while (tps[i]!=' ' && tps[i]!='\0') i++;  // go to next space
+  while (tps[i]==' ' && tps[i]!='\0') i++;  // go to next word
+  word[1] = tps+i;
+
+  
+  // still trying to figure out how this section works
+  for (j=0;j<2;j++) // no more than LN chars 
+  {
+    i = 0;
+    while(word[j][i]!=' ' && word[j][i]!='\0' && i<LN) i++;
+    word[j][i]='\0';
+  }
+  for (i=0;i<2;i++)
+  {
+    NV[i] = 0;
+    if (word[i][0]!='\0')
+    {
+      for (j=0;j<NL;j++)
+      {
+	s = NVS[i][j];
+	if (s[0] == '*') s++;  // skip special char
+	if (comparestring(word[i],s)==0)
+	{
+	  NV[i] = j;
+	  j = NL;
+	  while (NVS[i][NV[i]][0] == '*') NV[i]--;
+	}
+      }
+    }
+  }
+  if ((NV[0] < 1) || (word[1][0]!='\0' && NV[1] < 1))
+  {
+    printw("You use word(s) I don't know.!\n");
+    refresh();
+    return(1);
+  }
+  else return(0);
+}k9

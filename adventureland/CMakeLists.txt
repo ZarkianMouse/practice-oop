@@ -8,7 +8,8 @@ include_directories(${CURSES_INCLUDE_DIR})
 
 add_executable(advland 
   main.cpp
-  advland.cpp)
+  advland.cpp
+  )
 target_link_libraries(advland ${CURSES_LIBRARIES})
 
 

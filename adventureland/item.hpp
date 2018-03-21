@@ -1,11 +1,19 @@
+// This file holds the Item class
+// Copyright of Naomi Burhoe c. 2018
+
 class Item {
 public :
-    Item (std::string);
-    
-    std::string getItem() { return item;}
-    void printItem();
+   Item()
+     : location(0) {}
+   Item(signed char l)
+     : location(l) {}
 
-    ~Item();
+   signed char getLocate() {return location; }
+
+   void operator=(int a) { location = a;}
+   bool operator==(int a) { return location == a; }
+   bool operator!=(int a) { return location != a; }
+
 private :
-    std::string item;
+   signed char location;
 };

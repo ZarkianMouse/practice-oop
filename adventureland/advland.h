@@ -345,7 +345,8 @@ const char *MSS[ML] =
   " "
 };
 
-/* IA$(60) item descriptions */
+
+// IA$(60) item descriptions
 const char *IAS[IL] =
 {
   " ",
@@ -355,7 +356,7 @@ const char *IAS[IL] =
   "Hollow stump and remains of a felled tree.",
   "cypress tree",
   "water",
-  "evil smelling mud/MUD/",
+ "evil smelling mud/MUD/",
   "*GOLDEN FISH*/FIS/",
   "lit brass lamp/LAM/",
   "old fashoned brass lamp/LAM/",
