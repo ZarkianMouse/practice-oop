@@ -26,6 +26,7 @@
 #include "conio.h"
 #include "advland.hpp"
 #include "advland.h"
+#include "item.h"
 #include "item.hpp"
 
 /* dynamic global variables */

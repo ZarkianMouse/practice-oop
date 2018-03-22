@@ -17,19 +17,19 @@ Current Classes:
 1. Item
 
    The Item class contains a location element which corresponds
-   to locations of objects listed in advland.h
+   to locations of objects listed in item.h
    There are 60 possible locations, which initially
-   are represented by I2[IL] in advland.h and later
-   are updated by the player as the game progresses
+   are represented by I2[IL] in item.h and later
+   are updated by the player as the game progresses.
    The class header file is item.hpp
    
    Future Updates:
    I plan to add a description element to the Item class
    that will hold strings of data related to the corresponding
-   Item location as designated in IAS[] (see advland.h)
+   Item location as designated in IAS[] (see item.h)
    This feature will allow clarification of relationships
    between IA[] (the game item access array) and 
-   IAS (item descriptions)
+   IAS[] (item descriptions)
 
 
 Future Classes:
