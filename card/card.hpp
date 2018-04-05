@@ -35,18 +35,18 @@ enum Color {
 
 class StandardCard {
 public:
-  Card() = default;
-  Card(Rank r, Suit s)
+  StandardCard() = default;
+  StandardCard(Rank r, Suit s)
     : rank(r), suit(s) {}
 
-  Rank getRank() const {
+  Rank get_rank() const {
     return rank;
   }
 
-  Suit getSuit() const {
+  Suit get_suit() const {
     return suit;
   }
-private:
+
    Rank rank;
    Suit suit;
 
@@ -60,11 +60,10 @@ public:
      : color(c)
    {}
 
-   Color getColor() const {
+   Color get_color() const {
      return color;
    }
 
-private:
    Color color;
 
 };
@@ -95,13 +94,13 @@ public:
   // Plural of invariant is invariants. This is not
   // the same as invariance.
   Card(StandardCard sc)
-    : kind(Standard), val(c)
+    : kind(Standard), val(sc)
   { }
 
   // invariant: When kind == Joker, the active member
   // of val is jc.
-  Card(JokerCard c)
-    : kind(Joker), val(c)
+  Card(JokerCard jc)
+    : kind(Joker), val(jc)
   { }
 
   bool isStandard() const { return kind == Standard;}
@@ -122,17 +121,17 @@ public:
 
   Suit getSuit()
   {
-    return getStandardCard().getSuit();
+    return getStandardCard().get_suit();
   }
 
   Rank getRank()
   {
-    return getStandardCard().getRank();
+    return getStandardCard().get_rank();
   }
 
   Color getColor()
   {
-    return getJokerCard().getColor();
+    return getJokerCard().get_color();
   }
 
 private:

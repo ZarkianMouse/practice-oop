@@ -3,17 +3,17 @@
 
 #include <iostream>
 #include  <cassert>
-//#include "card.hpp"
+#include "card.hpp"
 //#include "bitcard.hpp"
-#include "inheritcard.hpp"
+//#include "inheritcard.hpp"
 //#include "deck.hpp"
 
 
 int main() {
    std::cout << "Hello World\n";
 
-   StandardCard sc(0, Ace, Spades);
-   JokerCard jc(1, Red);
+   StandardCard sc(Ace, Spades);
+   JokerCard jc(Red);
  
    std::cout << sc.get_rank()  << "\t" 
              << sc.get_suit()  << "\n"
