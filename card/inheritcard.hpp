@@ -119,8 +119,8 @@ public:
     return new JokerCard(*this);
   }
 
-
   Color get_color() const { return color; }
+
 private:
   Color color;
 };

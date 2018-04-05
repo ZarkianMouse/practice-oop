@@ -2,6 +2,7 @@
 // Copyright of Naomi Burhoe c. Spring 2018
 
 #include <iosfwd>
+#include <cassert>
 
 // Represents ranks of card
 enum Rank {
@@ -106,6 +107,13 @@ public:
   bool isStandard() const { return kind == Standard;}
   bool isJoker() const { return kind == Joker;}
 
+  Card* clone() {
+    if (isStandard())
+        return new Card(val.sc);
+    else
+        return new Card(val.jc);
+  }
+
   StandardCard getStandardCard()
   {
     // Do not access a member of a union
@@ -119,17 +127,17 @@ public:
     return val.jc;
   }
 
-  Suit getSuit()
+  Suit get_suit()
   {
     return getStandardCard().get_suit();
   }
 
-  Rank getRank()
+  Rank get_rank()
   {
     return getStandardCard().get_rank();
   }
 
-  Color getColor()
+  Color get_color()
   {
     return getJokerCard().get_color();
   }
