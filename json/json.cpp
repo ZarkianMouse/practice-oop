@@ -96,7 +96,10 @@ struct space_guard
 };
 
 /// Parse a value from a range of characters.
-Value* parse_value(const char*& first, const char* last);
+Value* parse_value(const char*& first, const char* last)
+{
+   return new Value(first);
+}
 
 /// Parse the true value.
 Bool*
