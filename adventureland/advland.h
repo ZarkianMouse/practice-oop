@@ -5,19 +5,6 @@
 
 #include <iosfwd>
 
-#define CL      151+1
-#define NL      59+1
-#define RL      33+1
-#define ML      71+1
-#define AR      11      // start location
-#define IL      60+1    // number of items (item limit)
-#define MX      5       // max number of items allowed to carry
-#define TT      13      // number of treasures
-#define LN      3       // number of characters in commands in item strings
-#define LT      125     // number of steps before light goes out
-#define TR      3       // treasure depository location
-#define MAXLINE 79      // max number of characters on one line
-
 // holds enumerated values for Map Locations
 enum Location {
   Inventory = -1,
@@ -56,6 +43,23 @@ enum Location {
   Empty4 = 32,
   MistRoom = 33
 };
+
+#define CL      151+1
+#define NL      59+1
+#define RL      33+1
+#define ML      71+1
+#define AR      11      // start location
+#define IL      60+1    // number of items (item limit)
+#define MX      5       // max number of items allowed to carry
+#define TT      13      // number of treasures
+#define LN      3       // number of characters in commands in item strings
+#define LT      125     // number of steps before light goes out
+#define TR      Stump       // treasure depository location
+#define MAXLINE 79      // max number of characters on one line
+
+
+
+
 
 /* C0%(151), C1%(151), C2%(151), C3%(151),
    C4%(151), C5%(151), C6%(151), C7%(151) action */

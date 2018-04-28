@@ -26,7 +26,6 @@
 #include "conio.h"
 #include "advland.hpp"
 #include "advland.h"
-#include "item.h"
 #include "item.hpp"
 
 /* dynamic global variables */
@@ -66,7 +65,7 @@ int main()
       std::cin.ignore();
       printw("\nUse saved game (Y or N)? ");
 
-      
+      /*
       if (yes_no()) // yes
       {
 	printw("Is previously saved game now on the current disk? ");
@@ -81,27 +80,27 @@ int main()
 	  fclose(fd);
 	}
 	else loadflag = 1;      // HERE WE GO AGAIN...
-      }
+      } */
       if (!loadflag)
       {
 	clrscr();
 	look();
 	NV[0] = 0;
 	turn();
-      }
+      } 
     }
     if (!get_input())
     {
       turn();
       if (!loadflag && !endflag)
       {
-	if (IA[9] == -1)
+	if (IA[9] == Inventory)
 	{
 	  lx--;
 	  if (lx < 0)
 	  {
 	    printw("light has run out!\n");
-	    IA[9] = 0;
+	    IA[9] = Unassigned;
 	  }
 	  else if (lx < 25) printw("light runs out in %u turns!",lx);
 	}
@@ -128,6 +127,87 @@ void Sleep ( int seconds )
 void empty_keyboardbuffer()
 {
   while (kbhit()!=0) getch();
+}
+
+// conversion for integers (primarily to make combination with Locations easier)
+Location convertInt(signed int a)
+{
+   switch(a) {
+   case -1:
+      return Inventory;
+
+   case 0:
+      return Unassigned;
+   case 1:
+      return Swamp;
+   case 2:
+      return Tree;
+   case 3:
+      return Stump;
+   case 4:
+      return Root;
+   case 5:
+      return Hole;
+   case 6:
+      return Hall;
+   case 7:
+      return Cavern;
+   case 8:
+      return EightRoom;
+   case 9:
+      return Anteroom;
+
+   case 10:
+      return Shore;
+   case 11:
+      return Forest;
+   case 12:
+      return Maze;
+   case 13:
+      return Maze2;
+   case 14:
+      return Maze3;
+   case 15:
+      return Maze4;
+   case 16:
+      return Maze5;
+   case 17:
+      return Maze6;
+   case 18:
+      return Chasm;
+   case 19:
+      return Ledge;
+
+   case 20:
+      return RoyalChamber;
+   case 21:
+      return LedgeThrone;
+   case 22:
+      return ThroneRoom;
+   case 23:
+      return Meadow;
+   case 24:
+      return Trouble;
+   case 25:
+      return Grove;
+   case 26:
+      return Bog;
+   case 27:
+      return PC;
+   case 28:
+      return Branch;
+   case 29:
+      return Empty1;
+
+   case 30:
+      return Empty2;
+   case 31:
+      return Empty3;
+   case 32:
+      return Empty4;
+   case 33:
+      return MistRoom;
+   }
 }
 
 /* Empty keyboard, get Y(es) or N(o), printf character with carriage return */
@@ -246,7 +326,7 @@ void look()
   int k;        /* Flag */
   int i,j;
 
-  if (df && (IA[9]!=-1 && IA[9]!=r)) printw("I can't see.  It's too dark!\n");
+  if (df && (IA[9]!=Inventory && IA[9]!=convertInt(r))) printw("I can't see.  It's too dark!\n");
   else
   {
     if (RSS[r][0] == '*') printf(RSS[r]+1);
@@ -257,12 +337,12 @@ void look()
     k = -1;
     for (i=0;i<IL;i++)
     {
-      if (k && (IA[i]==r))
+      if (k && (IA[i]==convertInt(r)))
       {
 	printw("\n\nVISIBLE ITEMS HERE:\n");
 	k = 0;
       }
-      if (IA[i] == r)
+      if (IA[i] == convertInt(r))
       {
 	j = get_item_string(i);
 	if ((wherex() + j + 3) > MAXLINE) printw("\n");
@@ -273,12 +353,12 @@ void look()
     k = -1;
     for (i=0;i<6;i++)
     {
-      if (k && (RM[r][i]!=0))
+      if (k && (RM[r][i]!=Unassigned))
       {
 	printw("\nObvious exits: \n");
 	k = 0;
       }
-      if (RM[r][i]!=0)
+      if (RM[r][i]!=Unassigned)
       {
 	printw("%s ",NVS[1][i + 1]);
       }
@@ -293,22 +373,23 @@ void turn()
 
   if (NV[0] == 1 && NV[1] < 7)
   {
-    i = (df) && (IA[9] != r) && (IA[9] != -1);
+    i = (df) && (IA[9] != convertInt(r)) && (IA[9] != Inventory);
     if (i) printw("Dangerous to move in the dark!\n");
     if (NV[1] < 1) printw("Give me a direction too.\n");
     else
     {
       j = RM[r][NV[1] - 1];
-      if (j == 0 && !i) printw("I can't go in that direction.\n");
+      if (j == Unassigned && !i) printw("I can't go in that direction.\n");
       else
       {
-	if (j == 0 && i)
+	if (j == Unassigned && i)
 	{
 	  printw("I fell down and broke my neck.\n");
 	  j = RL;
 	  df = 0;
 	}
 	if (!i) clrscr();
+
 	r = j;
 	look();
       }
@@ -336,7 +417,7 @@ void turn()
 	    f2 = check_logics();
 	    if (f2)
 	    {
-	      i = 0;
+	      i = Unassigned;
 	      y = 1;
 	      do
 	      {
@@ -377,21 +458,21 @@ void action(int ac, int *ip)
   if (ac == 52)
   {
     j = 0;
-    for (i=1;i<IL;i++) if (IA[i] == -1) j++;
+    for (i=1;i<IL;i++) if (IA[i] == Inventory) j++;
     if (j >= MX)
     {
       printw("I've too much to carry!\n");
       if (NV[0] != 0) x = CL;
       y = 10;
     }
-    else IA[get_action_variable(ip,x)] = -1;
+    else IA[get_action_variable(ip,x)] = Inventory;
   }
   // drop object
-  if (ac == 53) IA[get_action_variable(ip,x)] = r;
+  if (ac == 53) IA[get_action_variable(ip,x)] = convertInt(r);
   // go to room
   if (ac == 54) r = get_action_variable(ip,x);
   // delete object
-  if (ac == 55 || ac == 59) IA[get_action_variable(ip,x)] = 0;
+  if (ac == 55 || ac == 59) IA[get_action_variable(ip,x)] = Unassigned;
   // dark on
   if (ac == 56) df = -1;
   // dark off
@@ -412,7 +493,7 @@ void action(int ac, int *ip)
   if (ac == 62)
   {
     i = get_action_variable(ip,x);
-    IA[i] = (get_action_variable(ip,x));
+    IA[i] = (convertInt(get_action_variable(ip,x)));
   }
   // game over
   if (ac == 63)
@@ -451,7 +532,7 @@ void action(int ac, int *ip)
     j = -1;
     for (i=0;i<IL;i++)
     {
-      if (IA[i] == -1)
+      if (IA[i] == Inventory)
       {
 	p = get_item_string(i);
 	if ((p + wherex() + 2) > MAXLINE) printw("\n");
@@ -469,7 +550,7 @@ void action(int ac, int *ip)
   if (ac == 69)
   {
     lx = LT;
-    IA[9] = -1;
+    IA[9] = Inventory;
   }
   // clear screen
   if (ac == 70) clrscr();
@@ -494,9 +575,9 @@ void action(int ac, int *ip)
   {
     j = get_action_variable(ip,x);
     p = get_action_variable(ip,x);
-    i = IA[j].getLocate();
+    Location il = IA[j].getLocate();
     IA[j] = IA[p];
-    IA[p] = i;
+    IA[p] = il;
   }
 }
 
@@ -551,7 +632,7 @@ void carry_drop()
       if (NV[0] == 10)
       {
 	l = 0;
-	for (i=0;i<IL;i++) if (IA[i] == -1) l++;
+	for (i=0;i<IL;i++) if (IA[i] == Inventory) l++;
       }
       if (NV[0] == 10 && l >= MX)
       {
@@ -579,10 +660,10 @@ void carry_drop()
 		{
 		  if (NV[0] == 10)
 		  {
-		    if (IA[j] != r) k = 2;
+		    if (IA[j] != convertInt(r)) k = 2;
 		    else
 		    {
-		      IA[j] = -1;
+		      IA[j] = Inventory;
 		      k = 3;
 		      printw("OK, \n");
 		      j = IL;
@@ -590,10 +671,10 @@ void carry_drop()
 		  }
 		  else
 		  {
-		    if (IA[j] != -1) k=1;
+		    if (IA[j] != Inventory) k=1;
 		    else
 		    {
-		      IA[j] = r;
+		      IA[j] = convertInt(r);
 		      k = 3;
 		      printw("OK, \n");
 		      j = IL;
@@ -659,7 +740,7 @@ int comparestring(const char *s1, const char *s2)
 int check_logics()
 {
   int y,ll,k,i,f1;
-
+  Location rl = convertInt(r);
   f2 = -1;
   y = 1;
   do
@@ -667,13 +748,13 @@ int check_logics()
     ll = C[x][y] / 20;
     k = C[x][y] % 20;
     f1 = -1;
-    if (k == 1) f1 = -(IA[ll] == -1);
-    if (k == 2) f1 = -(IA[ll] == r);
-    if (k == 3) f1 = -(IA[ll] == r || IA[ll] == -1);
+    if (k == 1) f1 = -(IA[ll] == Inventory);
+    if (k == 2) f1 = -(IA[ll] == rl);
+    if (k == 3) f1 = -(IA[ll] == rl || IA[ll] == Inventory);
     if (k == 4) f1 = -(r == ll);
-    if (k == 5) f1 = -(IA[ll] != r);
-    if (k == 6) f1 = -(IA[ll] != -1);
-    if (k == 7) f1 = -(r != ll);
+    if (k == 5) f1 = -(IA[ll] != rl);
+    if (k == 6) f1 = -(IA[ll] != Inventory);
+    if (k == 7) f1 = -(ll != r);
     if (k == 8)
     {
       f1 = sf & 1<<ll;
@@ -689,7 +770,7 @@ int check_logics()
       f1 = 0;
       for (i=0;i<IL;i++)
       {
-	if (IA[i] == -1)
+	if (IA[i] == Inventory)
 	{
 	  f1 = -1;
 	  i = IL;
@@ -701,89 +782,21 @@ int check_logics()
       f1 = -1;
       for (i=0;i<IL;i++)
       {
-	if (IA[i] == -1)
+	if (IA[i] == Inventory)
 	{
 	  f1 = 0;
 	  i = IL;
 	}
       }
     }
-    if (k == 12) f1 = -(IA[ll] != -1 && IA[ll] != r);
-    if (k == 13) f1 = -(IA[ll] != 0);
-    if (k == 14) f1 = -(IA[ll] == 0);
+    if (k == 12) f1 = -(IA[ll] != Inventory && IA[ll] != rl);
+    if (k == 13) f1 = -(IA[ll] != Unassigned);
+    if (k == 14) f1 = -(IA[ll] == Unassigned);
     f2 = -(f2 && f1);
     y++;
   } while ((y <= 5) && f2);
   return(f2);
 }
 
-/*
-   Variables for use:
-   bool            loadflag, endflag;    should we load or end?
-   signed char     IA[IL];               object locations
-   signed int      NV[2];                word numbers, NV[0] = first, NV[1] = second
-
-   signed int      f,f3,f2;
-   signed int      r, lx, df, sf;
-   unsigned char   tps[80];              input string
-   signed int      x,y;
 
 
-   Most important variables:
-   IA[], I2[], loadflag, endflag, lx, df, sf, r, NV[]
-
-
-   Necessary Functions (need renamed) with descriptions for use
-
-   signed int yes_no();
-   Empty keyboard, get Y(es) or N(o), printf character with carriage return
-
-   void empty_keyboardbuffer();
-   Empty keyboard buffer
-
-   void welcome();
-   Welcome to Adventureland
-
-   int get_input();
-   Evaluate user input
-   Variables used: tps, NV[], NVS[][]
-
-   void observeArea(); (void look(void))
-   Print location description, exits and visible items
-   Variables used: df, IA[], RSS[][], tps, r, RM[][], NVS[][]
-
-   int get_item_string(int);
-   Discard unwanted string at end of item description
-   Returns number of printable characters in item description
-   Variables used: IAS[]
-
-   void turn();
-   Purpose unclear
-
-   void action(int ac, int *ip);
-   Takes actions based on input
-   Variables used: MSS[], IA[], NV[], x, y, r, df, sf ...
-
-   int get_action_variable(int *ip, int x);uu
-   Purpose unclear
-   Variables used: C[][]
-
-   void carry_drop(void);
-   Can I carry or drop it? If so, do it.
-
-   int length(const char *s);
-   Purpose unclear
-
-   void copystring(unsigned char *dest, unsigned const char *source);
-   copies strings and such (string class usage?)
-
-   int comparestring(const char *s1, const char *s2);
-   compares strings (string class usage?)
-
-   int check_logics(void);
-   checks if logic is correct in various situations
-   Variables used: C[][], x, r, IA[], sf, f2
-
-
-
-*/

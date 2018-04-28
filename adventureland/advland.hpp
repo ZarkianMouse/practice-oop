@@ -1,7 +1,10 @@
+#include "advland.h"
+
 /* Initial header file for the Adventureland revisions by Naomi Burhoe
    Simply to hold basic functions right now                           */
 void Sleep(int);
 void empty_keyboardbuffer();
+Location convertInt(int);
 int yes_no();
 void welcome();
 int get_input();
@@ -16,4 +19,5 @@ int length(const char *);
 void copystring(char *, const char *);
 int comparestring(const char *, const char *);
 int check_logics();
+
 
