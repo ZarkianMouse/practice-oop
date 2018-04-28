@@ -1,26 +1,29 @@
 #include <iostream>
 #include <string>
+#include "advland.h"
 #include "item.hpp"
 
+
+
 Item::Item()
-  : location(0)
+  : il(Unassigned)
 {}
 
-Item::Item(signed char l)
-  : location(l)
+Item::Item(Location l)
+  : il(l)
 {}
 
-void Item::operator=(int a)
+void Item::operator=(Location a)
 {
-  location = a;
+  il = a;
 }
 
-bool Item::operator==(int a)
+bool Item::operator==(Location a)
 {
-  return location == a;
+  return il == a;
 }
 
-bool Item::operator!=(int a)
+bool Item::operator!=(Location a)
 {
-  return location != a;
+  return il != a;
 }

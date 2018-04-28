@@ -369,8 +369,11 @@ void action(int ac, int *ip)
   FILE *fd;
   int i,j,p;
 
-  if (ac > 101) printw("%s\n",MSS[ac - 50]);    /* Messages 52 and up */
-  if (ac > 0 && ac < 52) printw("%s\n",MSS[ac]);  /* Messages 1 - 51 */
+  // print messages 52+
+  if (ac > 101) printf("%s\n",MSS[ac - 50]);
+  // print messages 1-51
+  if (ac > 0 && ac < 52) printf("%s\n",MSS[ac]);
+  // get/take object
   if (ac == 52)
   {
     j = 0;
@@ -383,13 +386,21 @@ void action(int ac, int *ip)
     }
     else IA[get_action_variable(ip,x)] = -1;
   }
+  // drop object
   if (ac == 53) IA[get_action_variable(ip,x)] = r;
+  // go to room
   if (ac == 54) r = get_action_variable(ip,x);
+  // delete object
   if (ac == 55 || ac == 59) IA[get_action_variable(ip,x)] = 0;
+  // dark on
   if (ac == 56) df = -1;
+  // dark off
   if (ac == 57) df = 0;
-  if (ac == 58) sf = 1<<get_action_variable(ip,x) | sf;
-  if (ac == 60) sf = sf ^ 1<<get_action_variable(ip,x);
+  // set flag
+  if (ac == 58) sf = 1 << get_action_variable(ip,x) | sf;
+  // clear flag
+  if (ac == 60) sf = sf ^ 1 << get_action_variable(ip,x);
+  // kill player
   if (ac == 61)
   {
     printw("I'm dead...\n");
@@ -397,11 +408,13 @@ void action(int ac, int *ip)
     df = 0;
     look();
   }
+  // move object to location
   if (ac == 62)
   {
     i = get_action_variable(ip,x);
     IA[i] = (get_action_variable(ip,x));
   }
+  // game over
   if (ac == 63)
   {
     printw("The game is now over.\nAnother game? ");
@@ -412,7 +425,9 @@ void action(int ac, int *ip)
       loadflag = 1;
     }
   }
+  // look around
   if (ac == 64) look();
+  // score
   if (ac == 65)
   {
     j = 0;
@@ -429,6 +444,7 @@ void action(int ac, int *ip)
       }
     }
   }
+  // check inventory
   if (ac == 66)
   {
     printw("I'm carrying:\n");
@@ -445,14 +461,19 @@ void action(int ac, int *ip)
     }
     if (j) printw("Nothing!\n");
   }
+  // set flag 0
   if (ac == 67) sf = 1 | sf;
+  // clear flag 0
   if (ac == 68) sf = sf ^ 1;
+  // refill lamp
   if (ac == 69)
   {
     lx = LT;
     IA[9] = -1;
   }
+  // clear screen
   if (ac == 70) clrscr();
+  // save game
   if (ac == 71)
   {
     printw("Is the current drive ready to receive the saved game? ");
@@ -468,6 +489,7 @@ void action(int ac, int *ip)
     }
     printw("\n");
   }
+  // swap object x with object y
   if (ac == 72)
   {
     j = get_action_variable(ip,x);

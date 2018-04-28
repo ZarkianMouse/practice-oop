@@ -1,17 +1,20 @@
-// This file holds the Item class
+// This file holds the initial Item locations and the Item class
+// Temp: This file also has Room locations
 // Copyright of Naomi Burhoe c. 2018
+
+#include "advland.h"
 
 class Item {
 public :
    Item();
-   Item(signed char l);
+   Item(Location l);
 
-   signed char getLocate() {return location; }
+   Location getLocate() {return il; }
 
-   void operator=(int);
-   bool operator==(int);
-   bool operator!=(int);
+   void operator=(Location);
+   bool operator==(Location);
+   bool operator!=(Location);
 
 private :
-   signed char location;
+   Location il;
 };

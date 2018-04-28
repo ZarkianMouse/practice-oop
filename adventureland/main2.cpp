@@ -7,16 +7,11 @@
 
 int main()
 {
-   std::cout << "Begin Item Process\n";
+   std::cout << "Begin Process\n";
 
-   Item IA[IL];
-   for (int i=0; i < IL; i++)
-   { 
-      IA[i] = I2[i];      // reset object locations
-      
-   }
+   std::cout << "Room 33/5: " << print(RM[RL - 1][5]) << '\n';
    
-   std::cout << "End Item Process\n";
+   std::cout << "End Process\n";
    return 0;
 }
 
