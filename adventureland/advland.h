@@ -48,7 +48,7 @@ enum Location {
 #define NL      59+1
 #define RL      33+1
 #define ML      71+1
-#define AR      11      // start location
+#define AR      Forest      // start location
 #define IL      60+1    // number of items (item limit)
 #define MX      5       // max number of items allowed to carry
 #define TT      13      // number of treasures

@@ -7,7 +7,7 @@ find_package(Curses REQUIRED)
 include_directories(${CURSES_INCLUDE_DIR})
 
 add_executable(advland 
-  main.cpp
+  main2.cpp
   advland.cpp
   item.cpp
   )

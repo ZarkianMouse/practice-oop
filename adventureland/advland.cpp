@@ -183,6 +183,7 @@ const char *NVS[2][NL] =
 // Room Locations
 const Location RM[RL][6] =
 {
+  Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,
   Unassigned,Cavern,Shore,Swamp,Unassigned,Trouble,
   Meadow,Swamp,Swamp,Grove,Unassigned,Unassigned,
   Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,Swamp,
@@ -194,7 +195,7 @@ const Location RM[RL][6] =
   Unassigned,Cavern,Unassigned,Unassigned,Unassigned,Unassigned,
   Cavern,Unassigned,Unassigned,Unassigned,RoyalChamber,Unassigned,
   Forest,Shore,Unassigned,Swamp,Hole,Unassigned,Bog,
-  Forest,Forest,Tree,Forest,Unassigned,Unassigned,
+  Forest,Forest,Branch,Forest,Unassigned,Unassigned,
   Maze2,Maze4,Maze4,Unassigned,Unassigned,Maze2,
   Unassigned,Unassigned,Unassigned,Maze3,Maze,Unassigned,
   Maze6,Maze,Maze2,Maze5,Maze5,Maze6,
@@ -204,7 +205,6 @@ const Location RM[RL][6] =
   Unassigned,Unassigned,Unassigned,Unassigned,Maze6,Unassigned,
   Unassigned,Unassigned,Unassigned,RoyalChamber,Unassigned,Unassigned,
   Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,Anteroom,
-  Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,
   Unassigned,Unassigned,Unassigned,LedgeThrone,Unassigned,Unassigned,
   Shore,Swamp,Shore,Forest,Unassigned,Unassigned,
   Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,
@@ -215,8 +215,7 @@ const Location RM[RL][6] =
   Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,
   Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,
   Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,
-  Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,
-  Unassigned,Trouble,Forest,Trouble,Branch,Trouble
+  Unassigned,Trouble,Forest,Trouble,Branch,Trouble,
 };
 
 // Room descriptions
