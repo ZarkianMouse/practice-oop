@@ -183,39 +183,73 @@ const char *NVS[2][NL] =
 // Room Locations
 const Location RM[RL][6] =
 {
+  // Unassigned
   Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,
-  Meadow,Swamp,Swamp,Grove,Unassigned,Unassigned,
-  Unassigned,Cavern,Shore,Swamp,Unassigned,Trouble,
+  // Swamp
+  Meadow,Unassigned,Unassigned,Grove,Tree,Unassigned,
+  // Tree
+  Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,Swamp,
+  // Stump
   Unassigned,Unassigned,Unassigned,Unassigned,Swamp,Root,
-  Swamp,Swamp,Swamp,Swamp,Swamp,Root,
+  // Root
   Unassigned,Unassigned,Unassigned,Unassigned,Stump,Hole,
-  Unassigned,Unassigned,Unassigned,Unassigned,Root,Unassigned,
+  // Hole
+  Unassigned,Unassigned,Unassigned,Unassigned,Root,Hall,
+  // Hall
   Unassigned,Unassigned,Unassigned,Unassigned,Hole,Cavern,
+  // Cavern
   EightRoom,Anteroom,Unassigned,PC,Hall,Maze,
+  // EightRoom
   Unassigned,Cavern,Unassigned,Unassigned,Unassigned,Unassigned,
+  // Anteroom
   Cavern,Unassigned,Unassigned,Unassigned,RoyalChamber,Unassigned,
-  Forest,Forest,Meadow,Forest,Forest,Unassigned,
-  Bog,Forest,Forest,Branch,Forest,Unassigned,
+  // Shore
+  Bog,Swamp,Unassigned,Meadow,Unassigned,Unassigned,
+  // Forest
+  Forest,Forest,Meadow,Forest,Branch,Unassigned,
+  // Maze
   Unassigned,Maze2,Maze4,Maze4,Unassigned,Unassigned,
+  // Maze2
   Maze2,Unassigned,Unassigned,Unassigned,Maze3,Maze,
+  // Maze3
   Unassigned,Maze6,Maze,Maze2,Maze5,Maze5,
+  // Maze4
   Maze6,Maze,Unassigned,Maze2,Maze,Maze2,
+  // Maze5
   Unassigned,Unassigned,Maze6,Unassigned,Unassigned,Maze3,
+  // Maze6
   Maze6,Maze6,Maze,Maze,Maze4,Maze3,
-  Chasm,Unassigned,Unassigned,Unassigned,Unassigned,Maze6,
+  // Chasm
+  Unassigned,Unassigned,Unassigned,Unassigned,Maze6,Unassigned,
+  // Ledge
   Unassigned,Unassigned,Unassigned,Unassigned,RoyalChamber,Unassigned,
+  // RoyalChamber
+  Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,Anteroom,
+  // LedgeThrone
   Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,
-  Anteroom,Unassigned,Unassigned,Unassigned,LedgeThrone,Unassigned,
-  Unassigned,Shore,Swamp,Shore,Forest,Unassigned,
+  // ThroneRoom
+  Unassigned,Unassigned,Unassigned,LedgeThrone,Unassigned,Unassigned,
+  // Meadow
+  Unassigned,Swamp,Shore,Forest,Unassigned,Unassigned,
+  // Trouble
   Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,
-  Unassigned,Forest,Unassigned,Swamp,Forest,Unassigned,
+  // Grove
+  Forest,Unassigned,Swamp,Unassigned,Unassigned,Unassigned,
+  // Bog
   Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,
-  Unassigned,Unassigned,Unassigned,Cavern,Unassigned,Unassigned,
-  Forest,Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,
+  // PC
+  Unassigned,Unassigned,Cavern,Unassigned,Unassigned,Unassigned,
+  // Branch
+  Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,Forest,
+  // Empty1
   Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,
+  // Empty2
   Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,
+  // Empty3
   Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,
+  // Empty4
   Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,
+  // MistRoom
   Unassigned,Trouble,Forest,Trouble,Branch,Trouble,
 };
 

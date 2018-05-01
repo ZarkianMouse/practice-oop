@@ -15,7 +15,8 @@ int main()
    
    for (int i = 0; i < RL; ++i)
    {
-      std::cout << "Room: " << convertIn(i) << "\n";
+      std::cout << "Room: " << convertIn(i) << "\n"
+                << "Description: " << RSS[i] << '\n';
       for (int j = 0; j < 6; ++j)
       {
          std::cout << "   " << direct(j) << ": "
