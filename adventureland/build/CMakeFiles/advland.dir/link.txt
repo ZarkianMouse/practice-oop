@@ -1,0 +1,1 @@
+/usr/bin/c++   -std=c++1z   CMakeFiles/advland.dir/main.cpp.o CMakeFiles/advland.dir/advland.cpp.o CMakeFiles/advland.dir/item.cpp.o  -o advland -rdynamic -lcurses -lform 

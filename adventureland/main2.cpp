@@ -110,86 +110,6 @@ std::string convertLocat(Location l)
    }
 }
 
-std::string convertLocate(Location l)
-{
-   switch(l) {
-   case Inventory:
-      return "Inventory";
-
-   case Unassigned:
-      return "Unassigned";
-   case Swamp:
-      return "Swamp";
-   case Tree:
-      return "Tree";
-   case Stump:
-      return "Stump";
-   case Root:
-      return "Root";
-   case Hole:
-      return "Hole";
-   case Hall:
-      return "Hall";
-   case Cavern:
-      return "Cavern";
-   case EightRoom:
-      return "EightRoom";
-   case Anteroom:
-      return "Anteroom";
-
-   case Shore:
-      return "Shore";
-   case Forest:
-      return "Forest";
-   case Maze:
-      return "Maze";
-   case Maze2:
-      return "Maze2";
-   case Maze3:
-      return "Maze3";
-   case Maze4:
-      return "Maze4";
-   case Maze5:
-      return "Maze5";
-   case Maze6:
-      return "Maze6";
-   case Chasm:
-      return "Chasm";
-   case Ledge:
-      return "Ledge";
-
-   case RoyalChamber:
-      return "RoyalChamber";
-   case LedgeThrone:
-      return "LedgeThrone";
-   case ThroneRoom:
-      return "ThroneRoom";
-   case Meadow:
-      return "Meadow";
-   case Trouble:
-      return "Trouble";
-   case Grove:
-      return "Grove";
-   case Bog:
-      return "Bog";
-   case PC:
-      return "PC";
-   case Branch:
-      return "Branch";
-   case Empty1:
-      return "Empty1";
-
-   case Empty2:
-      return "Empty2";
-   case Empty3:
-      return "Empty3";
-   case Empty4:
-      return "Empty4";
-   case MistRoom:
-      return "MistRoom";
-   }
-}
-
 
 std::string direct(int d)
 {
@@ -197,9 +117,9 @@ std::string direct(int d)
     case 0:
        return "NORTH";
     case 1:
-       return "SOUTH";
-    case 2:
        return "EAST";
+    case 2:
+       return "SOUTH";
     case 3:
        return "WEST";
     case 4:
