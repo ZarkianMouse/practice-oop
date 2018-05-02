@@ -48,6 +48,7 @@ enum Location {
 #define CL      151+1
 #define NL      59+1
 #define RL      33+1
+#define DL      6+1
 #define ML      71+1
 #define AR      Forest      // start location
 #define IL      60+1    // number of items (item limit)
@@ -60,7 +61,7 @@ enum Location {
 
 
 #include "item.hpp"
-
+#include "room.hpp"
 
 /* C0%(151), C1%(151), C2%(151), C3%(151),
    C4%(151), C5%(151), C6%(151), C7%(151) action */
@@ -77,11 +78,6 @@ extern const char *RSS[RL];
 
 extern Item items[IL];
 
-// I2(60) item locations
-extern const Location I2[IL];
-
-// IA$(60) item descriptions
-extern const char *IAS[IL]; 
 
 // MS$(71) messages
 extern const char *MSS[ML];

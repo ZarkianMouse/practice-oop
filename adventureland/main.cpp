@@ -5,13 +5,11 @@
 
    Purpose: to translate Adventureland from C to C++
 
-   Notes: there are still many instances where I haven't changed
-   any code because I am trying to figure out how they work together.
-   Once that happens, I'll add a lot more documentation.
-   The lack of commentary really bothers me.
-   But hey, I got it to compile on my computer :)
-   Though, there are still lots of issues, like the screen printout.
-   That is one thing I'll have to research more to figure out.
+   Notes:
+      Location enum - lists out possible locations for
+                      rooms and objects
+      Item class - holds location element and description element
+                   description element is listed as a std::string
 */
 
 #include <iostream>
@@ -27,15 +25,15 @@
 #include "advland.hpp"
 #include "advland.h"
 #include "item.hpp"
+#include "room.hpp"
 
 /* dynamic global variables */
-Item     IA[IL];                 /* object locations */
-signed int      NV[2];                  /* word numbers, NV[0] = first, NV[1] = second */
-signed int      loadflag, endflag;      /* should we load or end? */
+Item     IA[IL];       /* object locations */
+signed int      NV[2]; /* word numbers, NV[0] = first, NV[1] = second */
+signed int      loadflag, endflag; /* should we load or end? */
 signed int      f,f3,f2;
 signed int      r, lx, df, sf;
-char   tps[80];                /* input string */
-// std::string tps;
+char   tps[80]; /* input string */
 signed int      x,y;
 
 
@@ -65,6 +63,11 @@ int main()
       std::cin.ignore();
       printw("\nUse saved game (Y or N)? ");
 
+      // I removed the Load/Save File sequence because I did not find
+      // it a necessary component of the program
+      // I had more important things to focus on with the restructuring
+      // of the program than fixing how this worked
+      // Plus I don't have the right kind of FILE to make it work
       /*
       if (yes_no()) // yes
       {
@@ -81,6 +84,7 @@ int main()
 	}
 	else loadflag = 1;      // HERE WE GO AGAIN...
       } */
+      
       if (!loadflag)
       {
 	clrscr();
@@ -129,7 +133,11 @@ void empty_keyboardbuffer()
   while (kbhit()!=0) getch();
 }
 
-// conversion for integers (primarily to make combination with Locations easier)
+// conversion for integers
+// (primarily to make combination with Locations easier)
+// pre: receives signed int
+// post: returns Location value corresponding to int value
+//   ex. 0 -> Unassigned
 Location convertInt(signed int a)
 {
    switch(a) {
@@ -210,7 +218,8 @@ Location convertInt(signed int a)
    }
 }
 
-/* Empty keyboard, get Y(es) or N(o), printf character with carriage return */
+/* Empty keyboard, get Y(es) or N(o), 
+     printw character with carriage return */
 int yes_no()
 {
   int ch;
@@ -251,7 +260,10 @@ empty_keyboardbuffer();
 /* Evaluate user input */
 /* Externals:
    tps, NV[], NVS[][] */
-
+// pre: nothing
+// post: receives input from user by way of two strings
+//       returns 0 if user inputted a correct value
+//               1 otherwise
 int get_input()
 {
   int i,j;              // counting variables
@@ -320,7 +332,10 @@ int get_input()
 /* Print location description, exits and visible items */
 /* Externals:
    df, IA[], RSS[][], tps, r, RM[][], NVS[][] */
-
+// pre: nothing
+// post: returns nothing
+//       examines values from IA Item array
+//       prints them to screen as required
 void look()
 {
   int k;        /* Flag */
@@ -367,6 +382,11 @@ void look()
   }
 }
 
+// function for motion in game
+// pre: receives nothing, but does use values from IA[], df
+//      RM[], NV[], r, C[]
+// post: updates IA[] and outputs messages based on actions received
+//       from user
 void turn()
 {
   int i,j,ac;
@@ -445,6 +465,9 @@ void turn()
 
 /* externals:
    MSS[], IA[], NV[], x, y, r, df, sf ... */
+// pre: receives action input and i (based on C[][])
+// post: returns nothing
+//       performs action based on received input
 void action(int ac, int *ip)
 {
   FILE *fd;
@@ -539,7 +562,7 @@ void action(int ac, int *ip)
       {
 	p = get_item_string(i);
 	if ((p + wherex() + 2) > MAXLINE) printw("\n");
-	printw("%.*s. ",p,items[i].getDescrip().c_str());
+	printw("%.*s. ",p,IA[i].getDescrip().c_str());
 	j = 0;
       }
     }
@@ -588,7 +611,6 @@ void action(int ac, int *ip)
 /* Externals:
    IAS[] */
 /* Returns number of printable characters in item description */
-
 int get_item_string(int i)
 {
   int p;
@@ -708,6 +730,8 @@ void carry_drop()
   else if (!f2) printw("I can't do that yet.\n");
 }
 
+// receives c_str
+// returns length of c_str
 int length(const char *s)
 {
   int i;
@@ -717,6 +741,8 @@ int length(const char *s)
   return(i);
 }
 
+// receives source str and destination str
+// copies contents of source str to destination str
 void copystring(char *dest, std::string source)
 {
   int i;
@@ -730,6 +756,8 @@ void copystring(char *dest, std::string source)
   dest[i] = '\0';
 }
 
+// receives source str and destination str
+// copies contents of source str to destination str
 void copystring(char *dest, const char *source)
 {
   int i;
@@ -743,6 +771,9 @@ void copystring(char *dest, const char *source)
   dest[i] = '\0';
 }
 
+// receives two str
+// returns 0 if strs are inequal
+//         1 otherwise
 int comparestring(const char *s1, std::string s2)
 {
   int i;
@@ -752,6 +783,9 @@ int comparestring(const char *s1, std::string s2)
   if (s1[i]=='\0' || s2[i]=='\0') return(0); else return(1);
 }
 
+// receives two str
+// returns 0 if strs are inequal
+//         1 otherwise
 int comparestring(const char *s1, const char *s2)
 {
   int i;
