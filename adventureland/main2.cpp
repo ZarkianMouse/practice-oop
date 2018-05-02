@@ -1,11 +1,11 @@
 // This file is used to test new classes added
 // to ensure each class works with required components
-
-#include <iostream>
 #include "advland.h"
 #include "advland.hpp"
 #include "item.hpp"
 
+#include <iostream>
+#include <unordered_map>
 std::string convertLocat(Location);
 std::string direct(int);
 std::string convertIn(int);
@@ -13,20 +13,12 @@ int main()
 {
    std::cout << "Begin Process\n";
    
-   for (int i = 0; i < RL; ++i)
+   for (int i = 0; i < IL; ++i)
    {
-      std::cout << "Room: " << convertIn(i) << "\n"
-                << "Description: " << RSS[i] << '\n';
-      for (int j = 0; j < 6; ++j)
-      {
-         std::cout << "   " << direct(j) << ": "
-                   << convertLocat(RM[i][j]) << '\n';
-      }
-      std::cout << '\n';
+      std::cout << convertLocat(items[i].getLocate()) << ": "
+                << items[i].getDescrip() << '\n';
    }
-   
-   std::cout << '\n';
-   
+      
    std::cout << "End Process\n";
    return 0;
 }

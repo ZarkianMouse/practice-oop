@@ -291,6 +291,76 @@ const char *RSS[RL] = {
   "large misty room with strange letters over the exits."
 };
 
+Item items[IL] =
+{
+   Item(Unassigned, " "),
+   Item(Root, "dark hole"),
+   Item(Root, "*POT OF RUBIES*/RUB/"),
+   Item(Tree, "spider web with writing on it."),
+   Item(Unassigned, "Hollow stump and remains of a felled tree."),
+   Item(Swamp, "cypress tree"),
+   Item(Shore, "water"),
+   Item(Swamp, "evil smelling mud/MUD/"),
+   Item(Shore, "*GOLDEN FISH*/FIS/"),
+   Item(Unassigned, "lit brass lamp/LAM/"),
+   Item(Stump, "old fashioned brass lamp/LAM/"),
+   Item(Shore, "rusty axe (magic word- BUNYON -on it)/AXE/"),
+   Item(Stump, "bottle of water/BOT/"),
+   Item(Unassigned, "empty bottle/BOT/"),
+   Item(Tree, "ring of skeleton keys/KEY/"),
+   Item(Stump, "sign- LEAVE TREASURE HERE - (say 'SCORE')"),
+   Item(Hole, "locked door"),
+   Item(Unassigned, "open door with a hallway beyond"),
+   Item(Swamp, "swamp gas"),
+   Item(Chasm, "*GOLDEN NET*/NET/"),
+   Item(Unassigned, "chigger bites"),
+   Item(Unassigned, "infected chigger bites"),
+   Item(Swamp, "floating patch of oily slime"),
+   Item(EightRoom, "*ROYAL HONEY*/HON/"),
+   Item(EightRoom, "large african bees"),
+   Item(LedgeThrone, "thin black bear"),
+   Item(Unassigned, "bees in a bottle/BOT/"),
+   Item(Meadow, "large sleeping dragon"),
+   Item(Maze2, "flint and steel/FLI/"),
+   Item(Maze6, "*THICK PERSIAN RUG*/RUG/"),
+   Item(Chasm, 
+     "sign- MAGIC WORD IS AWAY. LOOK LA -(rest of sign is missing)"),
+   Item(Unassigned, "distended gas bladder/BLA/"),
+   Item(RoyalChamber, "bricked up window"),
+   Item(Meadow, 
+      "sign here says- IN SOME CASES MUD IS GOOD, IN OTHERS..."),
+   Item(Chasm, "stream of lava"),
+   Item(Unassigned, 
+     "bricked up window with a hole in it.  Beyond is a ledge."),
+   Item(Unassigned, "loose fire bricks"),
+   Item(ThroneRoom, "*GOLD CROWN*/CRO/"),
+   Item(LedgeThrone, "*MAGIC MIRROR*"),
+   Item(Unassigned, "sleeping bear"),
+   Item(Anteroom, "empty wine bladder/BLA/"),
+   Item(Unassigned, "broken glass"),
+   Item(Swamp, "chiggers/CHI/"),
+   Item(Unassigned, "dead bear"),
+   Item(Unassigned, "*DRAGON EGGS* (very rare)/EGG/"),
+   Item(Unassigned, "lava stream with a brick dam"),
+   Item(Grove, "*JEWELED FRUIT*/FRU/"),
+   Item(Bog, "*SMALL STATUE OF A BLUE OX*/OX/"),
+   Item(Unassigned, "*DIAMOND RING*/RIN/"),
+   Item(Unassigned, "*DIAMOND BRACELET*/BRA/"),
+   Item(Maze3, 
+     "strange scratchings on rock reveals- ALADDIN WAS HERE -"),
+   Item(MistRoom, "sign says- LIMBO.  FIND RIGHT EXIT AND LIVE AGAIN!"),
+   Item(Unassigned, "smoking hole.  Pieces of dragon and gore."),
+   Item(Shore, "sign says- NO SWIMMING ALLOWED -"),
+   Item(Maze6, "arrow pointing down"),
+   Item(Unassigned, "dead fish/FIS/"),
+   Item(Unassigned, "*FIRESTONE* (cold now)/FIR/"),
+   Item(Grove, "sign says- PAUL'S PLACE -"),
+   Item(Forest, "trees"),
+   Item(Unassigned, " "),
+   Item(Unassigned, " "),
+};
+
+#if 0
 // Item Locations
 const Location I2[IL] =
 {
@@ -311,68 +381,69 @@ const Location I2[IL] =
 // Item descriptions
 const char *IAS[IL] =
 {
-  " ",
-  "dark hole",
-  "*POT OF RUBIES*/RUB/",
-  "spider web with writing on it.",
-  "Hollow stump and remains of a felled tree.",
-  "cypress tree",
-  "water",
- "evil smelling mud/MUD/",
-  "*GOLDEN FISH*/FIS/",
-  "lit brass lamp/LAM/",
-  "old fashioned brass lamp/LAM/",
-  "rusty axe (magic word- BUNYON -on it)/AXE/",
-  "bottle of water/BOT/",
-  "empty bottle/BOT/",
-  "ring of skeleton keys/KEY/",
-  "sign- LEAVE TREASURE HERE - (say 'SCORE')",
-  "locked door",
-  "open door with a hallway beyond",
-  "swamp gas",
-  "*GOLDEN NET*/NET/",
-  "chigger bites",
-  "infected chigger bites",
-  "floating patch of oily slime",
-  "*ROYAL HONEY*/HON/",
-  "large african bees",
-  "thin black bear",
-  "bees in a bottle/BOT/",
-  "large sleeping dragon",
-  "flint and steel/FLI/",
-  "*THICK PERSIAN RUG*/RUG/",
-  "sign- MAGIC WORD IS AWAY. LOOK LA -(rest of sign is missing)",
-  "distended gas bladder/BLA/",
-  "bricked up window",
-  "sign here says- IN SOME CASES MUD IS GOOD, IN OTHERS...",
-  "stream of lava",
-  "bricked up window with a hole in it.  Beyond is a ledge.",
-  "loose fire bricks",
-  "*GOLD CROWN*/CRO/",
-  "*MAGIC MIRROR*",
-  "sleeping bear",
-  "empty wine bladder/BLA/",
-  "broken glass",
-  "chiggers/CHI/",
-  "dead bear",
-  "*DRAGON EGGS* (very rare)/EGG/",
-  "lava stream with a brick dam",
-  "*JEWELED FRUIT*/FRU/",
-  "*SMALL STATUE OF A BLUE OX*/OX/",
-  "*DIAMOND RING*/RIN/",
-  "*DIAMOND BRACELET*/BRA/",
-  "strange scratchings on rock reveals- ALADDIN WAS HERE -",
-  "sign says- LIMBO.  FIND RIGHT EXIT AND LIVE AGAIN!",
-  "smoking hole.  Pieces of dragon and gore.",
-  "sign says- NO SWIMMING ALLOWED -",
-  "arrow pointing down",
-  "dead fish/FIS/",
-  "*FIRESTONE* (cold now)/FIR/",
-  "sign says- PAUL'S PLACE -",
+  " ", //
+  "dark hole", //
+  "*POT OF RUBIES*/RUB/", //
+  "spider web with writing on it.", //
+  "Hollow stump and remains of a felled tree.", //
+  "cypress tree", //
+  "water", //
+ "evil smelling mud/MUD/", //
+  "*GOLDEN FISH*/FIS/", //
+  "lit brass lamp/LAM/", //
+  "old fashioned brass lamp/LAM/", //
+  "rusty axe (magic word- BUNYON -on it)/AXE/", //
+  "bottle of water/BOT/", //
+  "empty bottle/BOT/", //
+  "ring of skeleton keys/KEY/", //
+  "sign- LEAVE TREASURE HERE - (say 'SCORE')", //
+  "locked door", //
+  "open door with a hallway beyond", //
+  "swamp gas", //
+  "*GOLDEN NET*/NET/", //
+  "chigger bites", //
+  "infected chigger bites", //
+  "floating patch of oily slime", //
+  "*ROYAL HONEY*/HON/", //
+  "large african bees", //
+  "thin black bear", //
+  "bees in a bottle/BOT/", //
+  "large sleeping dragon", //
+  "flint and steel/FLI/", //
+  "*THICK PERSIAN RUG*/RUG/", //
+  "sign- MAGIC WORD IS AWAY. LOOK LA -(rest of sign is missing)", //
+  "distended gas bladder/BLA/", //
+  "bricked up window", //
+  "sign here says- IN SOME CASES MUD IS GOOD, IN OTHERS...", //
+  "stream of lava", //
+  "bricked up window with a hole in it.  Beyond is a ledge.", //
+  "loose fire bricks", //
+  "*GOLD CROWN*/CRO/", //
+  "*MAGIC MIRROR*", //
+  "sleeping bear", //
+  "empty wine bladder/BLA/", //
+  "broken glass", //
+  "chiggers/CHI/", //
+  "dead bear", //
+  "*DRAGON EGGS* (very rare)/EGG/", //
+  "lava stream with a brick dam", //
+  "*JEWELED FRUIT*/FRU/", //
+  "*SMALL STATUE OF A BLUE OX*/OX/", //
+  "*DIAMOND RING*/RIN/", //
+  "*DIAMOND BRACELET*/BRA/", //
+  "strange scratchings on rock reveals- ALADDIN WAS HERE -", //
+  "sign says- LIMBO.  FIND RIGHT EXIT AND LIVE AGAIN!", //
+  "smoking hole.  Pieces of dragon and gore.", //
+  "sign says- NO SWIMMING ALLOWED -", //
+  "arrow pointing down", //
+  "dead fish/FIS/", //
+  "*FIRESTONE* (cold now)/FIR/", //
+  "sign says- PAUL'S PLACE -", //
   "trees",
   " ",
   " "
 };
+#endif
 
 // Messages
 const char *MSS[ML] =

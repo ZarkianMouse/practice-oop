@@ -40,13 +40,13 @@ signed int      x,y;
 
 
 /* externals:
-   IA[], I2[], loadflag, endflag, lx, df, sf, r, NV[] */
+   IA[], items[], loadflag, endflag, lx, df, sf, r, NV[] */
 int main()
 {
   int i;        //counting variable
   FILE *fd;     // load file handle
 
-  for (i=0;i<IL;i++) IA[i] = I2[i];       // reset object locations
+  for (i=0;i<IL;i++) IA[i] = items[i];       // reset object locations
   loadflag = 1;
   endflag = 0;
   srand((unsigned)time(NULL));  // randomize
@@ -94,13 +94,13 @@ int main()
       turn();
       if (!loadflag && !endflag)
       {
-	if (IA[9] == Inventory)
+	if (IA[9].getLocate() == Inventory)
 	{
 	  lx--;
 	  if (lx < 0)
 	  {
 	    printw("light has run out!\n");
-	    IA[9] = Unassigned;
+	    IA[9].setLocate(Unassigned);
 	  }
 	  else if (lx < 25) printw("light runs out in %u turns!",lx);
 	}
@@ -326,7 +326,7 @@ void look()
   int k;        /* Flag */
   int i,j;
 
-  if (df && (IA[9]!=Inventory && IA[9]!=convertInt(r))) printw("I can't see.  It's too dark!\n");
+  if (df && (IA[9].getLocate() !=Inventory && IA[9].getLocate()!=convertInt(r))) printw("I can't see.  It's too dark!\n");
   else
   {
     if (RSS[r][0] == '*') printf(RSS[r]+1);
@@ -337,16 +337,16 @@ void look()
     k = -1;
     for (i=0;i<IL;i++)
     {
-      if (k && (IA[i]==convertInt(r)))
+      if (k && (IA[i].getLocate() ==convertInt(r)))
       {
 	printw("\n\nVISIBLE ITEMS HERE:\n");
 	k = 0;
       }
-      if (IA[i] == convertInt(r))
+      if (IA[i].getLocate() == convertInt(r))
       {
 	j = get_item_string(i);
 	if ((wherex() + j + 3) > MAXLINE) printw("\n");
-	printw("%.*s.  ",j,IAS[i]);
+	printw("%.*s.  ",j,IA[i].getDescrip().c_str());
       }
     }
     printw("\n");
@@ -373,7 +373,7 @@ void turn()
 
   if (NV[0] == 1 && NV[1] < 7)
   {
-    i = (df) && (IA[9] != convertInt(r)) && (IA[9] != Inventory);
+    i = (df) && (IA[9].getLocate() != convertInt(r)) && (IA[9].getLocate() != Inventory);
     if (i) printw("Dangerous to move in the dark!\n");
     if (NV[1] < 1) printw("Give me a direction too.\n");
     else
@@ -458,21 +458,24 @@ void action(int ac, int *ip)
   if (ac == 52)
   {
     j = 0;
-    for (i=1;i<IL;i++) if (IA[i] == Inventory) j++;
+    for (i=1;i<IL;i++) if (IA[i].getLocate() == Inventory) j++;
     if (j >= MX)
     {
       printw("I've too much to carry!\n");
       if (NV[0] != 0) x = CL;
       y = 10;
     }
-    else IA[get_action_variable(ip,x)] = Inventory;
+    else IA[get_action_variable(ip,x)].setLocate(Inventory);
   }
   // drop object
-  if (ac == 53) IA[get_action_variable(ip,x)] = convertInt(r);
+  if (ac == 53) 
+     IA[get_action_variable(ip,x)].setLocate(convertInt(r));
   // go to room
-  if (ac == 54) r = get_action_variable(ip,x);
+  if (ac == 54) 
+     r = get_action_variable(ip,x);
   // delete object
-  if (ac == 55 || ac == 59) IA[get_action_variable(ip,x)] = Unassigned;
+  if (ac == 55 || ac == 59) 
+     IA[get_action_variable(ip,x)].setLocate(Unassigned);
   // dark on
   if (ac == 56) df = -1;
   // dark off
@@ -493,7 +496,7 @@ void action(int ac, int *ip)
   if (ac == 62)
   {
     i = get_action_variable(ip,x);
-    IA[i] = (convertInt(get_action_variable(ip,x)));
+    IA[i].setLocate(convertInt(get_action_variable(ip,x)));
   }
   // game over
   if (ac == 63)
@@ -502,7 +505,7 @@ void action(int ac, int *ip)
     if (!yes_no())  /* No */ endflag = 1;
     else /* Yes */
     {
-      for (i=0;i<IL;i++) IA[i] = I2[i];
+      for (i=0;i<IL;i++) IA[i] = items[i];
       loadflag = 1;
     }
   }
@@ -512,7 +515,7 @@ void action(int ac, int *ip)
   if (ac == 65)
   {
     j = 0;
-    for (i=1;i<IL;i++) if (IA[i] == TR) if (IAS[i][0] == '*') j++;
+    for (i=1;i<IL;i++) if (IA[i].getLocate() == TR) if (IA[i].getDescrip()[0] == '*') j++;
     printw("I've stored %u treasures.  On a scale\nof 0 to 100, that rates a %u.\n",j,j*100/TT);
     if (j == TT)
     {
@@ -520,7 +523,7 @@ void action(int ac, int *ip)
       if (!yes_no())  /* No */ endflag = 1;
       else
       {
-	for (i=0;i<IL;i++) IA[i] = I2[i];
+	for (i=0;i<IL;i++) IA[i].setLocate(items[i].getLocate());
 	loadflag = 1;
       }
     }
@@ -532,11 +535,11 @@ void action(int ac, int *ip)
     j = -1;
     for (i=0;i<IL;i++)
     {
-      if (IA[i] == Inventory)
+      if (IA[i].getLocate() == Inventory)
       {
 	p = get_item_string(i);
 	if ((p + wherex() + 2) > MAXLINE) printw("\n");
-	printw("%.*s. ",p,IAS[i]);
+	printw("%.*s. ",p,items[i].getDescrip().c_str());
 	j = 0;
       }
     }
@@ -550,7 +553,7 @@ void action(int ac, int *ip)
   if (ac == 69)
   {
     lx = LT;
-    IA[9] = Inventory;
+    IA[9].setLocate(Inventory);
   }
   // clear screen
   if (ac == 70) clrscr();
@@ -576,8 +579,8 @@ void action(int ac, int *ip)
     j = get_action_variable(ip,x);
     p = get_action_variable(ip,x);
     Location il = IA[j].getLocate();
-    IA[j] = IA[p];
-    IA[p] = il;
+    IA[j].setLocate(IA[p].getLocate());
+    IA[p].setLocate(il);
   }
 }
 
@@ -590,13 +593,14 @@ int get_item_string(int i)
 {
   int p;
 
-  p = length(IAS[i]); /* points to back of string */
-  if (IAS[i][p-1] == '/')
+  p = IA[i].getDescrip().length(); /* points to back of string */
+  if (IA[i].getDescrip()[p-1] == '/')
   {
     do
       p--;
-    while (p>0 && IAS[i][p-1]!='/');
-    if (IAS[i][p-1]!='/') p = length(IAS[i]); else p--;
+    while (p>0 && IA[i].getDescrip()[p-1]!='/');
+    if (IA[i].getDescrip()[p-1]!='/')
+       p = IA[i].getDescrip().length(); else p--;
   }
   return(p);
 }
@@ -632,7 +636,7 @@ void carry_drop()
       if (NV[0] == 10)
       {
 	l = 0;
-	for (i=0;i<IL;i++) if (IA[i] == Inventory) l++;
+	for (i=0;i<IL;i++) if (IA[i].getLocate() == Inventory) l++;
       }
       if (NV[0] == 10 && l >= MX)
       {
@@ -644,10 +648,10 @@ void carry_drop()
 	k = 0;
 	for (j=0;j<IL;j++)
 	{
-	  ll = length(IAS[j]) - 1;
-	  if (IAS[j][ll] == '/')
+	  ll = IA[j].getDescrip().length() - 1;
+	  if (IA[j].getDescrip()[ll] == '/')
 	  {
-	    copystring(tps,IAS[j]);
+	    copystring(tps,IA[j].getDescrip());
 	    tps[ll] = '\0';     /* get one shorter */
 	    while (ll>1)
 	    {
@@ -660,10 +664,10 @@ void carry_drop()
 		{
 		  if (NV[0] == 10)
 		  {
-		    if (IA[j] != convertInt(r)) k = 2;
+		    if (IA[j].getLocate() != convertInt(r)) k = 2;
 		    else
 		    {
-		      IA[j] = Inventory;
+		      IA[j].setLocate(Inventory);
 		      k = 3;
 		      printw("OK, \n");
 		      j = IL;
@@ -671,10 +675,10 @@ void carry_drop()
 		  }
 		  else
 		  {
-		    if (IA[j] != Inventory) k=1;
+		    if (IA[j].getLocate() != Inventory) k=1;
 		    else
 		    {
-		      IA[j] = convertInt(r);
+		      IA[j].setLocate(convertInt(r));
 		      k = 3;
 		      printw("OK, \n");
 		      j = IL;
@@ -713,6 +717,19 @@ int length(const char *s)
   return(i);
 }
 
+void copystring(char *dest, std::string source)
+{
+  int i;
+
+  i = 0;
+  while (source[i]!='\0')
+  {
+    dest[i] = source[i];
+    i++;
+  }
+  dest[i] = '\0';
+}
+
 void copystring(char *dest, const char *source)
 {
   int i;
@@ -724,6 +741,15 @@ void copystring(char *dest, const char *source)
     i++;
   }
   dest[i] = '\0';
+}
+
+int comparestring(const char *s1, std::string s2)
+{
+  int i;
+
+  i = 0;
+  while (s1[i]==s2[i] && s1[i]!='\0') i++;
+  if (s1[i]=='\0' || s2[i]=='\0') return(0); else return(1);
 }
 
 int comparestring(const char *s1, const char *s2)
@@ -748,12 +774,12 @@ int check_logics()
     ll = C[x][y] / 20;
     k = C[x][y] % 20;
     f1 = -1;
-    if (k == 1) f1 = -(IA[ll] == Inventory);
-    if (k == 2) f1 = -(IA[ll] == rl);
-    if (k == 3) f1 = -(IA[ll] == rl || IA[ll] == Inventory);
+    if (k == 1) f1 = -(IA[ll].getLocate() == Inventory);
+    if (k == 2) f1 = -(IA[ll].getLocate() == rl);
+    if (k == 3) f1 = -(IA[ll].getLocate() == rl || IA[ll].getLocate() == Inventory);
     if (k == 4) f1 = -(r == ll);
-    if (k == 5) f1 = -(IA[ll] != rl);
-    if (k == 6) f1 = -(IA[ll] != Inventory);
+    if (k == 5) f1 = -(IA[ll].getLocate() != rl);
+    if (k == 6) f1 = -(IA[ll].getLocate() != Inventory);
     if (k == 7) f1 = -(ll != r);
     if (k == 8)
     {
@@ -770,7 +796,7 @@ int check_logics()
       f1 = 0;
       for (i=0;i<IL;i++)
       {
-	if (IA[i] == Inventory)
+	if (IA[i].getLocate() == Inventory)
 	{
 	  f1 = -1;
 	  i = IL;
@@ -782,16 +808,16 @@ int check_logics()
       f1 = -1;
       for (i=0;i<IL;i++)
       {
-	if (IA[i] == Inventory)
+	if (IA[i].getLocate() == Inventory)
 	{
 	  f1 = 0;
 	  i = IL;
 	}
       }
     }
-    if (k == 12) f1 = -(IA[ll] != Inventory && IA[ll] != rl);
-    if (k == 13) f1 = -(IA[ll] != Unassigned);
-    if (k == 14) f1 = -(IA[ll] == Unassigned);
+    if (k == 12) f1 = -(IA[ll].getLocate() != Inventory && IA[ll].getLocate() != rl);
+    if (k == 13) f1 = -(IA[ll].getLocate() != Unassigned);
+    if (k == 14) f1 = -(IA[ll].getLocate() == Unassigned);
     f2 = -(f2 && f1);
     y++;
   } while ((y <= 5) && f2);

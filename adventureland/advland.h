@@ -5,6 +5,7 @@
 
 #include <iosfwd>
 
+
 // holds enumerated values for Map Locations
 enum Location {
   Inventory = -1,
@@ -58,7 +59,7 @@ enum Location {
 #define MAXLINE 79      // max number of characters on one line
 
 
-
+#include "item.hpp"
 
 
 /* C0%(151), C1%(151), C2%(151), C3%(151),
@@ -73,6 +74,8 @@ extern const Location RM[RL][6];
 
 // RS$(33) room description
 extern const char *RSS[RL];
+
+extern Item items[IL];
 
 // I2(60) item locations
 extern const Location I2[IL];

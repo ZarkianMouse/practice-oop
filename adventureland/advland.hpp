@@ -16,7 +16,9 @@ int get_item_string(int);
 int get_action_variable(int *, int);
 void carry_drop();
 int length(const char *);
+void copystring(char *, std::string);
 void copystring(char *, const char *);
+int comparestring(const char *, std::string);
 int comparestring(const char *, const char *);
 int check_logics();
 

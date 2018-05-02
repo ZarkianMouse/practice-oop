@@ -6,24 +6,30 @@
 
 
 Item::Item()
-  : il(Unassigned)
+  : il(Unassigned), id(" ")
 {}
 
-Item::Item(Location l)
-  : il(l)
+Item::Item(Location l, std::string d)
+  : il(l), id(d)
 {}
 
-void Item::operator=(Location a)
+void Item::setLocate(Location l)
 {
-  il = a;
+  il = l;
+}
+void Item::operator=(const Item& i)
+{
+  il = i.il;
+  id = i.id;
 }
 
-bool Item::operator==(Location a)
+bool operator==(Item a, Item b)
 {
-  return il == a;
+  return a.il == b.il && a.id == b.id;
 }
 
-bool Item::operator!=(Location a)
+bool operator!=(Item a, Item b)
 {
-  return il != a;
+  return !(a == b);
 }
+
