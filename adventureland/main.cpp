@@ -10,6 +10,8 @@
                       rooms and objects
       Item class - holds location element and description element
                    description element is listed as a std::string
+                   
+  TODO: Implement Room class
 */
 
 #include <iostream>
@@ -343,6 +345,7 @@ void look()
   if (df && (IA[9].getLocate() !=Inventory && IA[9].getLocate()!=convertInt(r))) printw("I can't see.  It's too dark!\n");
   else
   {
+    // rooms[i].getDescrip()[0]
     if (RSS[r][0] == '*') printf(RSS[r]+1);
     else
     {
@@ -367,6 +370,7 @@ void look()
     k = -1;
     for (i=0;i<6;i++)
     {
+              // rooms[r].getDirect[i]
       if (k && (RM[r][i]!=Unassigned))
       {
 	printw("\nObvious exits: \n");

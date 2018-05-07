@@ -1,5 +1,9 @@
 /* file to hold initial adventureland function definitions */
 
+// TODO: Move Adventureland Function Definitions here
+//       Convert room variable declarations to Room
+//       Test Room vector/array
+
 #include <iostream>
 #include "advland.h"
 

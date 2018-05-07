@@ -1,5 +1,7 @@
 // This file is used to test new classes added
 // to ensure each class works with required components
+// TODO: Test Room class with updated variables
+
 #include "advland.h"
 #include "advland.hpp"
 #include "room.hpp"

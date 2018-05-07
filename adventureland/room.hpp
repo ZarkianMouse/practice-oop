@@ -1,6 +1,7 @@
 // This file holds the Room class
 // Copyright of Naomi Burhoe c. 2018
 
+// TODO : add Location rl to class
 
 #pragma once
 #include "advland.h"
