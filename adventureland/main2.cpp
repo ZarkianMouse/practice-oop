@@ -2,23 +2,38 @@
 // to ensure each class works with required components
 #include "advland.h"
 #include "advland.hpp"
+#include "room.hpp"
 #include "item.hpp"
 
 #include <iostream>
-#include <unordered_map>
+#include <vector>
+
 std::string convertLocat(Location);
-std::string direct(int);
-std::string convertIn(int);
+
 int main()
 {
    std::cout << "Begin Process\n";
    
-   for (int i = 0; i < IL; ++i)
+   Room myRoom;
+   
+   std::vector<Location> direct =
+   	{Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,Swamp};
+   Room myRoom2("*I'm in the top of a tall cypress tree.", direct);
+   
+   direct = myRoom.getDirect();
+   
+   for (auto i : direct)
    {
-      std::cout << convertLocat(items[i].getLocate()) << ": "
-                << items[i].getDescrip() << '\n';
+      std::cout << convertLocat(i) << " ";
    }
-      
+   
+   std::cout << "\n\nTree:" << myRoom2.getDescrip() << "\n";
+   for (auto i : myRoom2.getDirect())
+   {
+      std::cout << convertLocat(i) << " ";
+   }
+   std::cout << "\n\n";
+   
    std::cout << "End Process\n";
    return 0;
 }

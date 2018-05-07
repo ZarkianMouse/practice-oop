@@ -25,7 +25,6 @@
 #include "advland.hpp"
 #include "advland.h"
 #include "item.hpp"
-#include "room.hpp"
 
 /* dynamic global variables */
 Item     IA[IL];       /* object locations */
