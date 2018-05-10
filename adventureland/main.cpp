@@ -27,6 +27,7 @@
 #include "advland.hpp"
 #include "advland.h"
 #include "item.hpp"
+#include "room.hpp"
 
 /* dynamic global variables */
 Item     IA[IL];       /* object locations */
@@ -332,7 +333,7 @@ int get_input()
 
 /* Print location description, exits and visible items */
 /* Externals:
-   df, IA[], RSS[][], tps, r, RM[][], NVS[][] */
+   df, IA[], tps, r, RM[][], NVS[][] */
 // pre: nothing
 // post: returns nothing
 //       examines values from IA Item array
@@ -346,10 +347,10 @@ void look()
   else
   {
     // rooms[i].getDescrip()[0]
-    if (RSS[r][0] == '*') printf(RSS[r]+1);
+    if (RM[r].getRD()[0] == '*') printf(RM[r].getRD().c_str()+1);
     else
     {
-      printw("I'm in a %s",RSS[r]);
+      printw("I'm in a %s",RM[r].getRD().c_str());
     }
     k = -1;
     for (i=0;i<IL;i++)
@@ -370,13 +371,13 @@ void look()
     k = -1;
     for (i=0;i<6;i++)
     {
-              // rooms[r].getDirect[i]
-      if (k && (RM[r][i]!=Unassigned))
+      std::vector<Location> direct = RM[r].getDirect();
+      if (k && (direct[i]!=Unassigned))
       {
 	printw("\nObvious exits: \n");
 	k = 0;
       }
-      if (RM[r][i]!=Unassigned)
+      if (direct[i]!=Unassigned)
       {
 	printw("%s ",NVS[1][i + 1]);
       }
@@ -401,7 +402,8 @@ void turn()
     if (NV[1] < 1) printw("Give me a direction too.\n");
     else
     {
-      j = RM[r][NV[1] - 1];
+      std::vector<Location> direct = RM[r].getDirect();
+      j = direct[NV[1] - 1];
       if (j == Unassigned && !i) printw("I can't go in that direction.\n");
       else
       {

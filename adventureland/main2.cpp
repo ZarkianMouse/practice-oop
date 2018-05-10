@@ -16,25 +16,17 @@ int main()
 {
    std::cout << "Begin Process\n";
    
-   Room myRoom;
-   
-   std::vector<Location> direct =
-   	{Unassigned,Unassigned,Unassigned,Unassigned,Unassigned,Swamp};
-   Room myRoom2("*I'm in the top of a tall cypress tree.", direct);
-   
-   direct = myRoom.getDirect();
-   
-   for (auto i : direct)
+   for (auto i : rooms)
    {
-      std::cout << convertLocat(i) << " ";
+      std::vector<Location> direct = i.getDirect();   
+      std::cout << convertLocat(i.getLocate())
+                << ": " << i.getDescrip() << '\n';
+      for (auto j : direct)
+      {
+         std::cout << convertLocat(j) << '\n';
+      }
+      std::cout << '\n';
    }
-   
-   std::cout << "\n\nTree:" << myRoom2.getDescrip() << "\n";
-   for (auto i : myRoom2.getDirect())
-   {
-      std::cout << convertLocat(i) << " ";
-   }
-   std::cout << "\n\n";
    
    std::cout << "End Process\n";
    return 0;

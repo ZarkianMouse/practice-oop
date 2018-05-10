@@ -70,11 +70,17 @@ extern const unsigned int C[CL][8];
 // NV$(59,1) commands
 extern const char *NVS[2][NL];
 
+// RM(33) rooms with description and travel
+extern Room RM[RL];
+
+#if 0
 // RM(33,6) room travel
 extern const Location RM[RL][6];
 
 // RS$(33) room description
 extern const char *RSS[RL];
+
+#endif
 
 extern Item items[IL];
 

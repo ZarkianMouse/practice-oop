@@ -13,9 +13,10 @@
 class Room {
 public :
    Room();
-   Room(std::string, std::vector<Location>);
+   Room(Location, std::string, std::vector<Location>);
 
-   std::string getDescrip() { return rd; }
+   Location getRL() { return rl; }
+   std::string getRD() { return rd; }
    std::vector<Location> getDirect() { return direct; }
    void operator=(const Room&);
    
@@ -23,7 +24,9 @@ public :
    friend bool operator!=(Room, Room);
    
    ~Room();
+   
 private :
+   Location rl;
    std::string rd; // room description
    std::vector<Location> direct; // directions available
 };
