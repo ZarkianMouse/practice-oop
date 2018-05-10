@@ -26,7 +26,7 @@ public :
    ~Room();
    
 private :
-   Location rl;
+   Location rl; // room location
    std::string rd; // room description
    std::vector<Location> direct; // directions available
 };

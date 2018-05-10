@@ -19,9 +19,10 @@ public :
    
    void operator=(const Item&);
    
-   
    friend bool operator==(Item, Item);
    friend bool operator!=(Item, Item);
+   
+   ~Item();
    
 private :
    Location il; // item location

@@ -10,8 +10,9 @@
                       rooms and objects
       Item class - holds location element and description element
                    description element is listed as a std::string
-                   
-  TODO: Implement Room class
+      Room class - holds location element,
+                   description element (std::string)
+                   and direction element (std::vector)
 */
 
 #include <iostream>
@@ -217,6 +218,8 @@ Location convertInt(signed int a)
       return Empty4;
    case 33:
       return MistRoom;
+   default:
+      return Unassigned;
    }
 }
 
@@ -277,9 +280,11 @@ int get_input()
   // reads in commands for clone
   printw("\nTell me what to do? \n ");
   refresh();
-
+  
   std::cin >> tps1 >> tps2;
-  tps1 = tps1 + " " + tps2;
+  if (tps2 != tps1)
+     tps1 = tps1 + " " + tps2;
+  
   // changes input string to c_string for use in other parts of program
   strcpy(tps, tps1.c_str());
 

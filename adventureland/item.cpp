@@ -33,3 +33,5 @@ bool operator!=(Item a, Item b)
   return !(a == b);
 }
 
+Item::~Item()
+{}

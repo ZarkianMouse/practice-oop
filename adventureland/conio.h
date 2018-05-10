@@ -48,13 +48,9 @@
 
 // ------------------------------- define ---------------------
 
-#ifndef __NCURSES_H
 #include <ncurses.h>
-#endif
 
-#ifndef __CONIO_H
-#define __CONIO_H
-#endif
+#pragma once
 
 #define MAX_OKIEN 256
 
